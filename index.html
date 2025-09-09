@@ -702,21 +702,21 @@ To where it bent in the undergrowth;"></textarea>
                 <div class="sample-section">
                     <h3>📖 유명한 시 샘플</h3>
                     <div class="sample-buttons">
-                        <button class="sample-btn" onclick="loadSample('frost')">Robert Frost - The Road Not Taken</button>
-                        <button class="sample-btn" onclick="loadSample('shakespeare')">Shakespeare - Sonnet 18</button>
-                        <button class="sample-btn" onclick="loadSample('poe')">Edgar Allan Poe - The Raven</button>
-                        <button class="sample-btn" onclick="loadSample('dickinson')">Emily Dickinson - Hope</button>
-                        <button class="sample-btn" onclick="loadSample('blake')">William Blake - The Tyger</button>
+                        <button class="sample-btn" data-sample="frost">Robert Frost - The Road Not Taken</button>
+                        <button class="sample-btn" data-sample="shakespeare">Shakespeare - Sonnet 18</button>
+                        <button class="sample-btn" data-sample="poe">Edgar Allan Poe - The Raven</button>
+                        <button class="sample-btn" data-sample="dickinson">Emily Dickinson - Hope</button>
+                        <button class="sample-btn" data-sample="blake">William Blake - The Tyger</button>
                     </div>
                 </div>
             </div>
             
             <!-- 분석 버튼 -->
             <div class="button-group">
-                <button class="btn btn-primary" id="analyzeBtn" onclick="analyzePoem()">
+                <button class="btn btn-primary" id="analyzeBtn">
                     🔍 시 분석하기
                 </button>
-                <button class="btn btn-secondary" onclick="clearAll()">
+                <button class="btn btn-secondary" id="clearBtn">
                     🗑️ 초기화
                 </button>
             </div>
@@ -751,7 +751,7 @@ To where it bent in the undergrowth;"></textarea>
                 <div class="results-content">
                     <div class="download-section">
                         <h3>📄 분석 보고서 다운로드</h3>
-                        <button class="btn btn-primary" onclick="downloadReport()">
+                        <button class="btn btn-primary" id="downloadBtn">
                             💾 HTML 보고서 다운로드
                         </button>
                     </div>
@@ -885,20 +885,94 @@ What dread hand? & what dread feet?`
         
         // 초기화
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM 로드 완료');
             updateCharCount();
             loadApiKey();
             setupEventListeners();
+            
+            // 버튼 테스트
+            testButtons();
         });
+        
+        function testButtons() {
+            console.log('버튼 테스트 시작');
+            
+            // 모든 버튼 요소 확인
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const sampleBtns = document.querySelectorAll('.sample-btn');
+            const clearBtn = document.querySelector('button[onclick="clearAll()"]');
+            
+            console.log('분석 버튼:', analyzeBtn);
+            console.log('샘플 버튼들:', sampleBtns.length);
+            console.log('초기화 버튼:', clearBtn);
+            
+            if (!analyzeBtn) {
+                console.error('분석 버튼을 찾을 수 없습니다!');
+            }
+            
+            if (sampleBtns.length === 0) {
+                console.error('샘플 버튼들을 찾을 수 없습니다!');
+            }
+        }
         
         function setupEventListeners() {
             // 텍스트 입력 시 글자 수 업데이트
-            document.getElementById('poemInput').addEventListener('input', updateCharCount);
+            const poemInput = document.getElementById('poemInput');
+            if (poemInput) {
+                poemInput.addEventListener('input', updateCharCount);
+            }
             
             // API 키 저장
-            document.getElementById('apiKey').addEventListener('change', saveApiKey);
+            const apiKeyInput = document.getElementById('apiKey');
+            if (apiKeyInput) {
+                apiKeyInput.addEventListener('change', saveApiKey);
+            }
             
             // 모델 선택 시 설명 업데이트
-            document.getElementById('modelSelect').addEventListener('change', updateModelDescription);
+            const modelSelect = document.getElementById('modelSelect');
+            if (modelSelect) {
+                modelSelect.addEventListener('change', updateModelDescription);
+            }
+            
+            // 분석 버튼 이벤트
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            if (analyzeBtn) {
+                analyzeBtn.addEventListener('click', analyzePoem);
+                console.log('분석 버튼 이벤트 연결됨');
+            } else {
+                console.error('분석 버튼을 찾을 수 없습니다!');
+            }
+            
+            // 샘플 버튼들 이벤트
+            const sampleBtns = document.querySelectorAll('.sample-btn');
+            sampleBtns.forEach(btn => {
+                const sampleType = btn.getAttribute('data-sample');
+                if (sampleType) {
+                    btn.addEventListener('click', () => {
+                        console.log(`샘플 ${sampleType} 로드 중...`);
+                        loadSample(sampleType);
+                    });
+                    console.log(`샘플 버튼 ${sampleType} 이벤트 연결됨`);
+                }
+            });
+            
+            // 초기화 버튼 이벤트
+            const clearBtn = document.getElementById('clearBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    console.log('초기화 버튼 클릭됨');
+                    clearAll();
+                });
+                console.log('초기화 버튼 이벤트 연결됨');
+            }
+            
+            // 다운로드 버튼 이벤트 (동적으로 생성되므로 나중에 처리)
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.id === 'downloadBtn') {
+                    console.log('다운로드 버튼 클릭됨');
+                    downloadReport();
+                }
+            });
         }
         
         function updateModelDescription() {
