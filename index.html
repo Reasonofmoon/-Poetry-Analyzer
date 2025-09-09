@@ -24,133 +24,142 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
             min-height: 100vh;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
         
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
-            padding: 40px 20px;
+            color: #1a1a1a;
+            margin-bottom: 60px;
+            padding: 60px 0;
+            border-bottom: 3px solid #1a1a1a;
         }
         
         .header h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -2px;
             animation: fadeInDown 1s ease-out;
         }
         
         .header p {
-            font-size: 1.3em;
-            opacity: 0.9;
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 300;
             animation: fadeInUp 1s ease-out 0.3s both;
         }
         
         .main-content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            background: #ffffff;
+            border: 3px solid #1a1a1a;
+            padding: 50px;
+            margin-bottom: 40px;
             animation: fadeIn 1s ease-out 0.6s both;
         }
         
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
         
         .feature-card {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
+            background: #ffffff;
+            color: #1a1a1a;
+            padding: 30px;
+            border: 2px solid #1a1a1a;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: #1a1a1a;
+            color: #ffffff;
         }
         
         .feature-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
+            font-size: 2.5em;
+            margin-bottom: 20px;
             display: block;
         }
         
         .feature-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
         }
         
         .feature-desc {
             font-size: 0.9em;
-            opacity: 0.9;
+            line-height: 1.5;
+            opacity: 0.8;
         }
         
         .input-section {
-            margin-bottom: 30px;
+            margin-bottom: 50px;
         }
         
         .input-section h2 {
-            color: #4a5568;
-            margin-bottom: 20px;
+            color: #1a1a1a;
+            margin-bottom: 30px;
             font-size: 1.8em;
+            font-weight: 300;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         .form-group label {
             display: block;
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 10px;
-            font-size: 1.1em;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            font-size: 1em;
+            letter-spacing: 0.3px;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
+            padding: 18px;
+            border: 2px solid #1a1a1a;
+            background: #ffffff;
+            color: #1a1a1a;
             font-size: 16px;
-            transition: all 0.3s;
-            font-family: inherit;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
         }
         
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
+            border-color: #1a1a1a;
+            background: #f9f9f9;
         }
         
         #poemInput {
-            min-height: 250px;
+            min-height: 300px;
             font-family: 'Georgia', serif;
             line-height: 1.8;
             resize: vertical;
@@ -158,116 +167,119 @@
         
         .char-count {
             text-align: right;
-            color: #6c757d;
-            font-size: 14px;
-            margin-top: 8px;
+            color: #666;
+            font-size: 13px;
+            margin-top: 10px;
+            font-style: italic;
         }
         
         .sample-section {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
+            margin-top: 30px;
+            padding: 30px;
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
         }
         
         .sample-section h3 {
-            color: #495057;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
         
         .sample-buttons {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
         }
         
         .sample-btn {
-            padding: 10px 18px;
-            background: white;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
+            padding: 12px 20px;
+            background: #ffffff;
+            border: 2px solid #1a1a1a;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-            color: #495057;
-            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            color: #1a1a1a;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
         
         .sample-btn:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-            transform: translateY(-2px);
+            background: #1a1a1a;
+            color: #ffffff;
         }
         
         .api-key-section {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
+            background: #ffffff;
+            border: 2px solid #1a1a1a;
+            padding: 30px;
+            margin-bottom: 40px;
         }
         
         .api-key-section h3 {
-            color: #856404;
-            margin-bottom: 15px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            font-weight: 500;
+            font-size: 1.2em;
         }
         
         .api-key-section p {
-            color: #856404;
+            color: #1a1a1a;
             margin-bottom: 15px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
         
         .api-key-section a {
-            color: #0066cc;
-            text-decoration: none;
+            color: #1a1a1a;
+            text-decoration: underline;
             font-weight: 600;
         }
         
         .api-key-section a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
         
         .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
+            padding: 18px 35px;
+            border: 2px solid #1a1a1a;
+            background: #ffffff;
+            color: #1a1a1a;
+            font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
             text-align: center;
+            letter-spacing: 0.5px;
+            font-family: 'Georgia', serif;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            background: #1a1a1a;
+            color: #ffffff;
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: #ffffff;
+            color: #1a1a1a;
         }
         
         .btn-secondary {
-            background: #f8f9fa;
-            color: #495057;
-            border: 2px solid #e9ecef;
+            background: #ffffff;
+            color: #1a1a1a;
         }
         
         .btn-secondary:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
+            background: #1a1a1a;
+            color: #ffffff;
         }
         
         .btn:disabled {
@@ -278,184 +290,192 @@
         
         .button-group {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
-            margin: 30px 0;
+            margin: 50px 0;
             flex-wrap: wrap;
         }
         
         .loading {
             display: none;
             text-align: center;
-            padding: 50px;
-            color: #667eea;
+            padding: 60px;
+            color: #1a1a1a;
+            border: 2px solid #1a1a1a;
+            background: #ffffff;
+            margin: 40px 0;
         }
         
         .loading .spinner {
-            width: 60px;
-            height: 60px;
-            border: 6px solid #e9ecef;
-            border-top: 6px solid #667eea;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e0e0e0;
+            border-top: 3px solid #1a1a1a;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 25px;
+            margin: 0 auto 30px;
         }
         
         .loading h3 {
-            margin-bottom: 15px;
-            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 400;
         }
         
         .loading p {
-            font-size: 1.1em;
-            opacity: 0.8;
+            font-size: 1em;
+            opacity: 0.7;
+            line-height: 1.6;
         }
         
         .progress-bar {
             width: 100%;
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
+            height: 8px;
+            background: #e0e0e0;
             overflow: hidden;
-            margin: 25px 0;
+            margin: 30px 0;
         }
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: #1a1a1a;
             width: 0%;
             transition: width 0.5s ease;
-            border-radius: 5px;
         }
         
         .error-message {
-            background: #f8d7da;
-            border: 2px solid #f5c6cb;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: #ffffff;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+            padding: 25px;
+            margin: 30px 0;
             display: none;
         }
         
         .error-message h4 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 500;
         }
         
         .results {
             display: none;
-            margin-top: 40px;
+            margin-top: 50px;
         }
         
         .results-header {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px 15px 0 0;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 40px;
             text-align: center;
         }
         
         .results-header h2 {
-            margin-bottom: 15px;
-            font-size: 2em;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 300;
+            letter-spacing: -1px;
         }
         
         .results-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 25px;
+            margin-top: 30px;
         }
         
         .stat-card {
-            background: rgba(255,255,255,0.2);
-            padding: 15px;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .stat-number {
-            font-size: 2em;
-            font-weight: bold;
+            font-size: 1.8em;
+            font-weight: 300;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .stat-label {
-            font-size: 0.9em;
-            opacity: 0.9;
+            font-size: 0.85em;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
         }
         
         .results-content {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
+            background: #ffffff;
+            border: 2px solid #1a1a1a;
             border-top: none;
-            border-radius: 0 0 15px 15px;
-            padding: 40px;
+            padding: 50px;
         }
         
         .download-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .download-section h3 {
-            color: #495057;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            font-size: 1.3em;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
         
         .preview-section {
-            margin-top: 30px;
-            padding: 25px;
-            background: white;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
+            margin-top: 40px;
+            padding: 35px;
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
         }
         
         .preview-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #495057;
-            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: 0.3px;
         }
         
         .preview-content {
-            max-height: 500px;
+            max-height: 600px;
             overflow-y: auto;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 20px;
+            border: 1px solid #e0e0e0;
+            padding: 25px;
             background: #fafafa;
-            font-size: 0.95em;
-            line-height: 1.6;
+            font-size: 0.9em;
+            line-height: 1.7;
+            color: #1a1a1a;
         }
         
         .footer {
             text-align: center;
-            color: white;
-            margin-top: 50px;
-            padding: 30px;
-            opacity: 0.9;
+            color: #1a1a1a;
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid #e0e0e0;
         }
         
         .footer p {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            opacity: 0.7;
+            font-size: 0.9em;
         }
         
         .footer a {
-            color: #ffd700;
-            text-decoration: none;
+            color: #1a1a1a;
+            text-decoration: underline;
         }
         
         .footer a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
         
         /* 애니메이션 */
@@ -537,40 +557,36 @@
             }
         }
         
-        /* 다크 모드 지원 */
-        @media (prefers-color-scheme: dark) {
-            .main-content {
-                background: #2d3748;
-                color: #e2e8f0;
-            }
-            
-            .form-group input,
-            .form-group textarea {
-                background: #4a5568;
-                color: #e2e8f0;
-                border-color: #718096;
-            }
-            
-            .sample-section {
-                background: #4a5568;
-                border-color: #718096;
-            }
-            
-            .sample-btn {
-                background: #4a5568;
-                color: #e2e8f0;
-                border-color: #718096;
-            }
-            
-            .preview-section {
-                background: #4a5568;
-                border-color: #718096;
-            }
-            
-            .preview-content {
-                background: #2d3748;
-                color: #e2e8f0;
-            }
+        /* 추가 스타일링 */
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f0f0f0 !important;
+            color: #999 !important;
+            border-color: #ddd !important;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+        
+        /* 스크롤바 스타일링 */
+        .preview-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .preview-content::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+        
+        .preview-content::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+        }
+        
+        .preview-content::-webkit-scrollbar-thumb:hover {
+            background: #333;
         }
     </style>
 </head>
@@ -947,32 +963,32 @@ What dread hand? & what dread feet?`
         }
         
         async function callGeminiAPI(apiKey, text, title) {
-            const prompt = `다음 영어 시를 종합적으로 분석해주세요:
+            const prompt = `Please analyze the following English poem comprehensively:
 
-제목: ${title}
+Title: ${title}
 
-시 원문:
+Poem:
 ${text}
 
-다음 측면에서 분석해주세요:
-1. 수사법 (Rhetorical Devices): 은유, 직유, 의인법, 과장법 등
-2. 음성 기법 (Sound Devices): 두운법, 각운법, 리듬, 운율 등
-3. 주제와 상징 (Themes & Symbols): 주요 주제, 상징, 모티프 등
-4. 문체와 어조 (Style & Tone): 문체적 특징, 어조, 분위기 등
-5. 구조와 형식 (Structure & Form): 시의 형식, 구성, 운율 체계 등
+Please analyze from these aspects:
+1. Rhetorical Devices: metaphor, simile, personification, hyperbole, etc.
+2. Sound Devices: alliteration, rhyme, rhythm, meter, etc.
+3. Themes & Symbols: major themes, symbols, motifs, etc.
+4. Style & Tone: stylistic features, tone, mood, etc.
+5. Structure & Form: poetic form, organization, rhyme scheme, etc.
 
-각 분석 항목에 대해 구체적인 예시와 함께 설명해주세요.
-분석 결과를 JSON 형태로 구조화해서 제공해주세요.
+Please provide specific examples and explanations for each analysis item.
+Structure the analysis results in JSON format.
 
-JSON 형식:
+JSON format:
 {
-  "title": "시 제목",
+  "title": "poem title",
   "analysis": {
     "rhetorical_devices": [
       {
-        "type": "기법 유형",
-        "text": "해당 구절",
-        "explanation": "설명"
+        "type": "device type",
+        "text": "relevant passage",
+        "explanation": "explanation"
       }
     ],
     "sound_devices": [...],
@@ -980,47 +996,76 @@ JSON 형식:
     "style_tone": [...],
     "structure_form": [...]
   },
-  "summary": "전체적인 분석 요약"
+  "summary": "overall analysis summary"
 }`;
 
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: prompt
-                        }]
-                    }]
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error(`API 호출 실패: ${response.status} ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-                const content = data.candidates[0].content.parts[0].text;
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: prompt
+                            }]
+                        }],
+                        generationConfig: {
+                            temperature: 0.3,
+                            topK: 40,
+                            topP: 0.95,
+                            maxOutputTokens: 2048,
+                        }
+                    })
+                });
                 
-                // JSON 추출 시도
-                try {
-                    const jsonMatch = content.match(/\{[\s\S]*\}/);
-                    if (jsonMatch) {
-                        return JSON.parse(jsonMatch[0]);
-                    } else {
-                        // JSON이 없으면 텍스트 파싱
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    let errorMessage = `API 호출 실패 (${response.status})`;
+                    
+                    if (response.status === 400) {
+                        errorMessage = 'API 키가 올바르지 않거나 요청 형식에 문제가 있습니다.';
+                    } else if (response.status === 403) {
+                        errorMessage = 'API 키 권한이 없거나 할당량을 초과했습니다.';
+                    } else if (response.status === 429) {
+                        errorMessage = 'API 요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.';
+                    } else if (response.status >= 500) {
+                        errorMessage = 'Google 서버에 일시적인 문제가 있습니다. 잠시 후 다시 시도해주세요.';
+                    }
+                    
+                    throw new Error(errorMessage);
+                }
+                
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                    const content = data.candidates[0].content.parts[0].text;
+                    
+                    // JSON 추출 시도
+                    try {
+                        const jsonMatch = content.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                            const jsonStr = jsonMatch[0];
+                            return JSON.parse(jsonStr);
+                        } else {
+                            // JSON이 없으면 텍스트 파싱
+                            return parseTextResponse(content, title);
+                        }
+                    } catch (e) {
+                        console.warn('JSON 파싱 실패, 텍스트 파싱으로 전환:', e);
                         return parseTextResponse(content, title);
                     }
-                } catch (e) {
-                    // JSON 파싱 실패 시 텍스트 파싱
-                    return parseTextResponse(content, title);
+                } else if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
+                    throw new Error('콘텐츠가 안전 정책에 의해 차단되었습니다. 다른 시를 시도해보세요.');
+                } else {
+                    throw new Error('API 응답에서 유효한 콘텐츠를 찾을 수 없습니다.');
                 }
-            } else {
-                throw new Error('API 응답에서 콘텐츠를 찾을 수 없습니다.');
+            } catch (error) {
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    throw new Error('네트워크 연결에 문제가 있습니다. 인터넷 연결을 확인해주세요.');
+                }
+                throw error;
             }
         }
         
@@ -1034,35 +1079,70 @@ JSON 형식:
                 structure_form: []
             };
             
-            // 간단한 텍스트 파싱 로직
+            // 개선된 텍스트 파싱 로직
             const lines = content.split('\n');
             let currentSection = '';
+            let currentItem = null;
             
             for (const line of lines) {
                 const trimmed = line.trim();
-                if (trimmed.includes('수사법') || trimmed.includes('Rhetorical')) {
+                
+                // 섹션 헤더 감지
+                if (trimmed.match(/rhetorical|수사법|figurative/i)) {
                     currentSection = 'rhetorical_devices';
-                } else if (trimmed.includes('음성') || trimmed.includes('Sound')) {
+                } else if (trimmed.match(/sound|음성|alliteration|rhyme/i)) {
                     currentSection = 'sound_devices';
-                } else if (trimmed.includes('주제') || trimmed.includes('Theme')) {
+                } else if (trimmed.match(/theme|주제|symbol|상징/i)) {
                     currentSection = 'themes_symbols';
-                } else if (trimmed.includes('문체') || trimmed.includes('Style')) {
+                } else if (trimmed.match(/style|문체|tone|어조/i)) {
                     currentSection = 'style_tone';
-                } else if (trimmed.includes('구조') || trimmed.includes('Structure')) {
+                } else if (trimmed.match(/structure|구조|form|형식/i)) {
                     currentSection = 'structure_form';
-                } else if (trimmed && currentSection && (trimmed.includes('-') || trimmed.includes('•'))) {
-                    analysis[currentSection].push({
-                        type: '분석 항목',
-                        text: trimmed,
-                        explanation: trimmed
-                    });
+                }
+                
+                // 분석 항목 추출
+                if (currentSection && trimmed) {
+                    // 기법 유형 감지
+                    const deviceMatch = trimmed.match(/(metaphor|simile|personification|alliteration|rhyme|symbol|theme)/i);
+                    if (deviceMatch) {
+                        const deviceType = deviceMatch[1];
+                        const textMatch = trimmed.match(/"([^"]+)"/);
+                        const quotedText = textMatch ? textMatch[1] : trimmed;
+                        
+                        analysis[currentSection].push({
+                            type: deviceType,
+                            text: quotedText,
+                            explanation: trimmed
+                        });
+                    } else if (trimmed.includes('-') || trimmed.includes('•') || trimmed.includes('*')) {
+                        // 리스트 항목 처리
+                        const cleanText = trimmed.replace(/^[-•*]\s*/, '');
+                        if (cleanText.length > 10) {
+                            analysis[currentSection].push({
+                                type: 'Literary Device',
+                                text: cleanText.substring(0, 50) + '...',
+                                explanation: cleanText
+                            });
+                        }
+                    }
                 }
             }
+            
+            // 빈 섹션에 기본 항목 추가
+            Object.keys(analysis).forEach(key => {
+                if (analysis[key].length === 0) {
+                    analysis[key].push({
+                        type: 'Analysis',
+                        text: 'Various literary elements detected',
+                        explanation: 'This poem contains multiple literary devices that contribute to its overall effect.'
+                    });
+                }
+            });
             
             return {
                 title: title,
                 analysis: analysis,
-                summary: content.substring(0, 500) + '...'
+                summary: content.length > 300 ? content.substring(0, 300) + '...' : content
             };
         }
         
