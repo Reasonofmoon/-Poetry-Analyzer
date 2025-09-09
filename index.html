@@ -1032,25 +1032,25 @@ What dread hand? & what dread feet?`
                     temperature: 0.2,
                     topK: 40,
                     topP: 0.8,
-                    maxOutputTokens: 4096,
+                    maxOutputTokens: 8192,  // 대폭 증가
                 },
                 'gemini-2.5-flash': {
                     temperature: 0.3,
                     topK: 40,
                     topP: 0.95,
-                    maxOutputTokens: 2048,
+                    maxOutputTokens: 8192,  // 대폭 증가
                 },
                 'gemini-2.5-flash-lite': {
                     temperature: 0.4,
                     topK: 32,
                     topP: 0.9,
-                    maxOutputTokens: 1024,
+                    maxOutputTokens: 4096,  // 증가
                 },
                 'gemini-2.0-flash': {
                     temperature: 0.25,
                     topK: 40,
                     topP: 0.9,
-                    maxOutputTokens: 3072,
+                    maxOutputTokens: 8192,  // 대폭 증가
                 }
             };
             return configs[modelName] || configs['gemini-2.5-flash'];
@@ -1058,41 +1058,115 @@ What dread hand? & what dread feet?`
         
         // 모델별 최적화된 프롬프트 생성
         function generateOptimizedPrompt(modelName, text, title) {
-            const basePrompt = `Please analyze the following English poem comprehensively:
+            const basePrompt = `Please provide a comprehensive and detailed analysis of the following English poem. I need extensive analysis with multiple examples for each category.
 
 Title: ${title}
 
 Poem:
 ${text}
 
-Please analyze from these aspects:
-1. Rhetorical Devices: metaphor, simile, personification, hyperbole, etc.
-2. Sound Devices: alliteration, rhyme, rhythm, meter, etc.
-3. Themes & Symbols: major themes, symbols, motifs, etc.
-4. Style & Tone: stylistic features, tone, mood, etc.
-5. Structure & Form: poetic form, organization, rhyme scheme, etc.
+IMPORTANT: Please provide a thorough analysis with AT LEAST 3-5 examples for each category. Be very detailed and comprehensive.
 
-Please provide specific examples and explanations for each analysis item.
-Structure the analysis results in JSON format.
+Analyze from these aspects with extensive detail:
 
-JSON format:
+1. RHETORICAL DEVICES (Find ALL instances):
+   - Metaphor: Direct comparisons without "like" or "as"
+   - Simile: Comparisons using "like" or "as"
+   - Personification: Giving human qualities to non-human things
+   - Hyperbole: Exaggeration for effect
+   - Irony: Contrast between expectation and reality
+   - Symbolism: Objects/images representing deeper meanings
+   - Allusion: References to other works, history, or culture
+   - Oxymoron: Contradictory terms together
+   - Paradox: Seemingly contradictory statements that reveal truth
+
+2. SOUND DEVICES (Analyze ALL sound patterns):
+   - Alliteration: Repetition of initial consonant sounds
+   - Assonance: Repetition of vowel sounds
+   - Consonance: Repetition of consonant sounds
+   - Rhyme scheme: Pattern of end rhymes (ABAB, AABB, etc.)
+   - Internal rhyme: Rhymes within lines
+   - Rhythm and meter: Beat and pattern of stressed/unstressed syllables
+   - Onomatopoeia: Words that imitate sounds
+   - Repetition: Repeated words, phrases, or structures
+
+3. THEMES & SYMBOLS (Identify ALL major themes):
+   - Central themes and messages
+   - Symbolic meanings of objects, colors, nature elements
+   - Motifs: Recurring elements
+   - Imagery: Vivid descriptive language
+   - Archetypal symbols
+   - Religious or mythological references
+
+4. STYLE & TONE (Comprehensive stylistic analysis):
+   - Tone: Author's attitude (serious, playful, melancholic, etc.)
+   - Mood: Emotional atmosphere for readers
+   - Diction: Word choice and vocabulary level
+   - Syntax: Sentence structure and arrangement
+   - Point of view: First person, third person, etc.
+   - Voice: Distinctive style of expression
+
+5. STRUCTURE & FORM (Complete formal analysis):
+   - Poetic form: Sonnet, ballad, free verse, etc.
+   - Stanza structure: Number and arrangement of stanzas
+   - Line structure: Length, enjambment, caesura
+   - Rhyme scheme: Complete pattern analysis
+   - Meter: Iambic pentameter, trochee, etc.
+   - Organization: How ideas are arranged and developed
+
+Please provide the analysis in this EXACT JSON format with comprehensive details:
+
 {
-  "title": "poem title",
+  "title": "${title}",
   "analysis": {
     "rhetorical_devices": [
       {
-        "type": "device type",
-        "text": "relevant passage",
-        "explanation": "explanation"
+        "type": "specific device name",
+        "text": "exact quote from poem",
+        "explanation": "detailed explanation of how this device works and its effect",
+        "line_number": "line number if applicable",
+        "literary_effect": "what effect this creates"
       }
     ],
-    "sound_devices": [...],
-    "themes_symbols": [...],
-    "style_tone": [...],
-    "structure_form": [...]
+    "sound_devices": [
+      {
+        "type": "specific sound device",
+        "text": "exact quote or pattern",
+        "explanation": "detailed explanation",
+        "pattern": "describe the pattern",
+        "effect": "emotional or aesthetic effect"
+      }
+    ],
+    "themes_symbols": [
+      {
+        "type": "theme or symbol",
+        "text": "relevant passage",
+        "explanation": "deep analysis of meaning",
+        "significance": "why this is important to the poem",
+        "cultural_context": "historical or cultural background if relevant"
+      }
+    ],
+    "style_tone": [
+      {
+        "type": "stylistic element",
+        "text": "supporting evidence",
+        "explanation": "detailed analysis",
+        "effect": "impact on reader"
+      }
+    ],
+    "structure_form": [
+      {
+        "type": "structural element",
+        "text": "example or pattern",
+        "explanation": "how this contributes to the poem",
+        "technical_details": "specific technical information"
+      }
+    ]
   },
-  "summary": "overall analysis summary"
-}`;
+  "summary": "A comprehensive 3-4 sentence summary of the poem's overall literary significance, main themes, and artistic techniques"
+}
+
+CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary elements across all categories. Be thorough and detailed in your explanations.`;
 
             // 모델별 특화 프롬프트 추가
             const modelSpecificPrompts = {
@@ -1105,10 +1179,13 @@ JSON format:
             return modelSpecificPrompts[modelName] || basePrompt;
         }
 
-        async function callGeminiAPI(apiKey, text, title) {
+        async function callGeminiAPI(apiKey, text, title, retryCount = 0) {
             const selectedModel = document.getElementById('modelSelect').value;
             const prompt = generateOptimizedPrompt(selectedModel, text, title);
             const config = getModelConfig(selectedModel);
+            
+            console.log(`API 호출 시작 (시도 ${retryCount + 1}/3):`, selectedModel);
+            console.log('설정:', config);
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
@@ -1165,18 +1242,45 @@ JSON format:
                         throw new Error('API 응답에서 텍스트 콘텐츠를 찾을 수 없습니다.');
                     }
                     
-                    // JSON 추출 시도
+                    // JSON 추출 시도 (개선된 방식)
                     try {
-                        const jsonMatch = content.match(/\{[\s\S]*\}/);
-                        if (jsonMatch) {
-                            const jsonStr = jsonMatch[0];
-                            return JSON.parse(jsonStr);
+                        // 여러 방식으로 JSON 추출 시도
+                        let jsonStr = '';
+                        
+                        // 방법 1: 전체 JSON 블록 찾기
+                        const fullJsonMatch = content.match(/\{[\s\S]*\}/);
+                        if (fullJsonMatch) {
+                            jsonStr = fullJsonMatch[0];
+                        }
+                        
+                        // 방법 2: ```json 코드 블록에서 추출
+                        const codeBlockMatch = content.match(/```json\s*([\s\S]*?)\s*```/);
+                        if (codeBlockMatch && codeBlockMatch[1]) {
+                            jsonStr = codeBlockMatch[1];
+                        }
+                        
+                        // 방법 3: 첫 번째 { 부터 마지막 } 까지
+                        if (!jsonStr) {
+                            const firstBrace = content.indexOf('{');
+                            const lastBrace = content.lastIndexOf('}');
+                            if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+                                jsonStr = content.substring(firstBrace, lastBrace + 1);
+                            }
+                        }
+                        
+                        if (jsonStr) {
+                            // JSON 정리 (불완전한 JSON 수정 시도)
+                            jsonStr = jsonStr.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
+                            const parsed = JSON.parse(jsonStr);
+                            console.log('JSON 파싱 성공:', parsed);
+                            return parsed;
                         } else {
-                            // JSON이 없으면 텍스트 파싱
+                            console.warn('JSON 블록을 찾을 수 없음, 텍스트 파싱으로 전환');
                             return parseTextResponse(content, title);
                         }
                     } catch (e) {
-                        console.warn('JSON 파싱 실패, 텍스트 파싱으로 전환:', e);
+                        console.warn('JSON 파싱 실패:', e.message);
+                        console.log('원본 콘텐츠:', content);
                         return parseTextResponse(content, title);
                     }
                 } else if (data.error) {
@@ -1186,7 +1290,19 @@ JSON format:
                     throw new Error('API 응답 구조가 예상과 다릅니다. 콘솔을 확인해주세요.');
                 }
             } catch (error) {
-                console.error('API 호출 상세 오류:', error);
+                console.error(`API 호출 오류 (시도 ${retryCount + 1}/3):`, error);
+                
+                // 재시도 가능한 오류인지 확인
+                const isRetryableError = error.message.includes('503') || 
+                                       error.message.includes('502') || 
+                                       error.message.includes('overloaded') ||
+                                       error.message.includes('timeout');
+                
+                if (isRetryableError && retryCount < 2) {
+                    console.log(`재시도 중... (${retryCount + 2}/3)`);
+                    await new Promise(resolve => setTimeout(resolve, (retryCount + 1) * 2000)); // 점진적 대기
+                    return callGeminiAPI(apiKey, text, title, retryCount + 1);
+                }
                 
                 if (error.name === 'TypeError' && error.message.includes('fetch')) {
                     throw new Error('네트워크 연결에 문제가 있습니다. 인터넷 연결을 확인해주세요.');
@@ -1201,7 +1317,7 @@ JSON format:
         }
         
         function parseTextResponse(content, title) {
-            console.log('텍스트 파싱 시작:', content.substring(0, 200) + '...');
+            console.log('텍스트 파싱 시작:', content.substring(0, 300) + '...');
             
             // 텍스트 응답을 구조화된 형태로 파싱
             const analysis = {
@@ -1221,15 +1337,72 @@ JSON format:
                 };
             }
             
-            // 개선된 텍스트 파싱 로직
-            const lines = content.split('\n');
+            // 강화된 텍스트 파싱 로직
+            const sections = content.split(/(?:\n\s*\n|\n(?=\d+\.))/);
             let currentSection = '';
-            let currentItem = null;
             
-            for (const line of lines) {
-                const trimmed = line.trim();
-                
+            for (const section of sections) {
+                const trimmed = section.trim();
                 if (!trimmed) continue;
+                
+                // 섹션 헤더 감지
+                if (trimmed.toLowerCase().includes('rhetorical') || trimmed.toLowerCase().includes('수사법')) {
+                    currentSection = 'rhetorical_devices';
+                    continue;
+                } else if (trimmed.toLowerCase().includes('sound') || trimmed.toLowerCase().includes('음성')) {
+                    currentSection = 'sound_devices';
+                    continue;
+                } else if (trimmed.toLowerCase().includes('theme') || trimmed.toLowerCase().includes('symbol') || trimmed.toLowerCase().includes('주제')) {
+                    currentSection = 'themes_symbols';
+                    continue;
+                } else if (trimmed.toLowerCase().includes('style') || trimmed.toLowerCase().includes('tone') || trimmed.toLowerCase().includes('문체')) {
+                    currentSection = 'style_tone';
+                    continue;
+                } else if (trimmed.toLowerCase().includes('structure') || trimmed.toLowerCase().includes('form') || trimmed.toLowerCase().includes('구조')) {
+                    currentSection = 'structure_form';
+                    continue;
+                }
+                
+                // 분석 항목 추출
+                const lines = trimmed.split('\n');
+                for (const line of lines) {
+                    const cleanLine = line.trim();
+                    if (!cleanLine) continue;
+                    
+                    // 다양한 패턴으로 분석 항목 추출
+                    const patterns = [
+                        /^[-•*]\s*(.+)$/,  // 불릿 포인트
+                        /^(\w+):\s*(.+)$/,  // 콜론 구분
+                        /^"([^"]+)"\s*[-–—]\s*(.+)$/,  // 인용문과 설명
+                        /^(.+?)\s*[-–—]\s*(.+)$/  // 대시 구분
+                    ];
+                    
+                    for (const pattern of patterns) {
+                        const match = cleanLine.match(pattern);
+                        if (match && currentSection) {
+                            const item = {
+                                type: match[1] || 'Literary Device',
+                                text: match[2] || match[1] || cleanLine,
+                                explanation: match[3] || match[2] || '분석된 문학적 기법'
+                            };
+                            
+                            if (analysis[currentSection]) {
+                                analysis[currentSection].push(item);
+                            }
+                            break;
+                        }
+                    }
+                    
+                    // 패턴이 맞지 않으면 일반 텍스트로 처리
+                    if (currentSection && cleanLine.length > 10) {
+                        analysis[currentSection].push({
+                            type: 'Literary Analysis',
+                            text: cleanLine.substring(0, 100),
+                            explanation: cleanLine
+                        });
+                    }
+                }
+            }
                 
                 // 섹션 헤더 감지
                 if (trimmed.match(/rhetorical|수사법|figurative/i)) {
