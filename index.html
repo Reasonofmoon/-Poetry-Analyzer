@@ -142,7 +142,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 18px;
             border: 2px solid #1a1a1a;
@@ -154,7 +155,8 @@
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #1a1a1a;
             background: #f9f9f9;
@@ -638,8 +640,7 @@
                 <h3>🔑 API 키 설정 필요</h3>
                 <p>이 도구는 Google Gemini API를 사용합니다. 무료로 사용할 수 있으며, 아래 단계를 따라 API 키를 설정해주세요:</p>
                 <ol style="margin-left: 20px; margin-bottom: 15px;">
-                    <li><a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>에서 무료 API 키
-                        발급</li>
+                    <li><a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>에서 무료 API 키 발급</li>
                     <li>아래 입력란에 API 키를 입력</li>
                     <li>API 키는 브라우저에만 저장되며 외부로 전송되지 않습니다</li>
                 </ol>
@@ -688,7 +689,7 @@
                 </div>
             </div>
 
-            <!-- 시 제목 입력 -->
+            <!-- 시 정보 입력 -->
             <div class="input-section">
                 <h2>📝 시 정보 입력</h2>
 
@@ -902,31 +903,7 @@ What dread hand? & what dread feet?`
             updateCharCount();
             loadApiKey();
             setupEventListeners();
-
-            // 버튼 테스트
-            testButtons();
         });
-
-        function testButtons() {
-            console.log('버튼 테스트 시작');
-
-            // 모든 버튼 요소 확인
-            const analyzeBtn = document.getElementById('analyzeBtn');
-            const sampleBtns = document.querySelectorAll('.sample-btn');
-            const clearBtn = document.querySelector('button[onclick="clearAll()"]');
-
-            console.log('분석 버튼:', analyzeBtn);
-            console.log('샘플 버튼들:', sampleBtns.length);
-            console.log('초기화 버튼:', clearBtn);
-
-            if (!analyzeBtn) {
-                console.error('분석 버튼을 찾을 수 없습니다!');
-            }
-
-            if (sampleBtns.length === 0) {
-                console.error('샘플 버튼들을 찾을 수 없습니다!');
-            }
-        }
 
         function setupEventListeners() {
             // 텍스트 입력 시 글자 수 업데이트
@@ -951,9 +928,6 @@ What dread hand? & what dread feet?`
             const analyzeBtn = document.getElementById('analyzeBtn');
             if (analyzeBtn) {
                 analyzeBtn.addEventListener('click', analyzePoem);
-                console.log('분석 버튼 이벤트 연결됨');
-            } else {
-                console.error('분석 버튼을 찾을 수 없습니다!');
             }
 
             // 샘플 버튼들 이벤트
@@ -961,28 +935,19 @@ What dread hand? & what dread feet?`
             sampleBtns.forEach(btn => {
                 const sampleType = btn.getAttribute('data-sample');
                 if (sampleType) {
-                    btn.addEventListener('click', () => {
-                        console.log(`샘플 ${sampleType} 로드 중...`);
-                        loadSample(sampleType);
-                    });
-                    console.log(`샘플 버튼 ${sampleType} 이벤트 연결됨`);
+                    btn.addEventListener('click', () => loadSample(sampleType));
                 }
             });
 
             // 초기화 버튼 이벤트
             const clearBtn = document.getElementById('clearBtn');
             if (clearBtn) {
-                clearBtn.addEventListener('click', () => {
-                    console.log('초기화 버튼 클릭됨');
-                    clearAll();
-                });
-                console.log('초기화 버튼 이벤트 연결됨');
+                clearBtn.addEventListener('click', clearAll);
             }
 
-            // 다운로드 버튼 이벤트 (동적으로 생성되므로 나중에 처리)
+            // 다운로드 버튼 이벤트 (동적으로 생성)
             document.addEventListener('click', function (e) {
                 if (e.target && e.target.id === 'downloadBtn') {
-                    console.log('다운로드 버튼 클릭됨');
                     downloadReport();
                 }
             });
@@ -1093,9 +1058,7 @@ What dread hand? & what dread feet?`
             simulateProgress();
 
             try {
-                // Gemini API 직접 호출
                 const result = await callGeminiAPI(apiKey, text, title);
-
                 if (result) {
                     currentAnalysisResult = result;
                     displayResults(result);
@@ -1112,38 +1075,36 @@ What dread hand? & what dread feet?`
             }
         }
 
-        // 모델별 최적화된 설정 반환
         function getModelConfig(modelName) {
             const configs = {
                 'gemini-2.5-pro': {
                     temperature: 0.2,
                     topK: 40,
                     topP: 0.8,
-                    maxOutputTokens: 8192,  // 대폭 증가
+                    maxOutputTokens: 8192,
                 },
                 'gemini-2.5-flash': {
                     temperature: 0.3,
                     topK: 40,
                     topP: 0.95,
-                    maxOutputTokens: 8192,  // 대폭 증가
+                    maxOutputTokens: 8192,
                 },
                 'gemini-2.5-flash-lite': {
                     temperature: 0.4,
                     topK: 32,
                     topP: 0.9,
-                    maxOutputTokens: 4096,  // 증가
+                    maxOutputTokens: 4096,
                 },
                 'gemini-2.0-flash': {
                     temperature: 0.25,
                     topK: 40,
                     topP: 0.9,
-                    maxOutputTokens: 8192,  // 대폭 증가
+                    maxOutputTokens: 8192,
                 }
             };
             return configs[modelName] || configs['gemini-2.5-flash'];
         }
 
-        // 모델별 최적화된 프롬프트 생성
         function generateOptimizedPrompt(modelName, text, title) {
             const basePrompt = `Please provide a comprehensive and detailed analysis of the following English poem. I need extensive analysis with multiple examples for each category.
 
@@ -1255,7 +1216,6 @@ Please provide the analysis in this EXACT JSON format with comprehensive details
 
 CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary elements across all categories. Be thorough and detailed in your explanations.`;
 
-            // 모델별 특화 프롬프트 추가
             const modelSpecificPrompts = {
                 'gemini-2.5-pro': basePrompt + `\n\nAs Gemini 2.5 Pro, please provide deep literary analysis with advanced reasoning and comprehensive insights. Focus on complex literary relationships and nuanced interpretations.`,
                 'gemini-2.5-flash': basePrompt + `\n\nAs Gemini 2.5 Flash, please provide efficient yet thorough analysis with clear explanations and practical insights.`,
@@ -1272,7 +1232,6 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
             const config = getModelConfig(selectedModel);
 
             console.log(`API 호출 시작 (시도 ${retryCount + 1}/3):`, selectedModel);
-            console.log('설정:', config);
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
@@ -1291,7 +1250,6 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
                     let errorMessage = `API 호출 실패 (${response.status})`;
 
                     if (response.status === 400) {
@@ -1308,18 +1266,14 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 }
 
                 const data = await response.json();
-                console.log('API Response:', data); // 디버깅용
 
-                // 안전한 응답 처리
                 if (data.candidates && data.candidates.length > 0) {
                     const candidate = data.candidates[0];
 
-                    // 안전 정책 체크
                     if (candidate.finishReason === 'SAFETY') {
                         throw new Error('콘텐츠가 안전 정책에 의해 차단되었습니다. 다른 시를 시도해보세요.');
                     }
 
-                    // 콘텐츠 추출
                     let content = '';
                     if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
                         content = candidate.content.parts[0].text;
@@ -1329,9 +1283,8 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                         throw new Error('API 응답에서 텍스트 콘텐츠를 찾을 수 없습니다.');
                     }
 
-                    // JSON 추출 시도 (개선된 방식)
+                    // JSON 추출 시도
                     try {
-                        // 여러 방식으로 JSON 추출 시도
                         let jsonStr = '';
 
                         // 방법 1: 전체 JSON 블록 찾기
@@ -1340,7 +1293,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                             jsonStr = fullJsonMatch[0];
                         }
 
-                        // 방법 2: ```json 코드 블록에서 추출
+                        // 방법 2: 코드 블록에서 추출
                         const codeBlockMatch = content.match(/```json\s*([\s\S]*?)\s*```/);
                         if (codeBlockMatch && codeBlockMatch[1]) {
                             jsonStr = codeBlockMatch[1];
@@ -1356,38 +1309,33 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                         }
 
                         if (jsonStr) {
-                            // JSON 정리 (불완전한 JSON 수정 시도)
+                            // JSON 정리
                             jsonStr = jsonStr.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
                             const parsed = JSON.parse(jsonStr);
-                            console.log('JSON 파싱 성공:', parsed);
                             return parsed;
                         } else {
-                            console.warn('JSON 블록을 찾을 수 없음, 텍스트 파싱으로 전환');
                             return parseTextResponse(content, title);
                         }
                     } catch (e) {
                         console.warn('JSON 파싱 실패:', e.message);
-                        console.log('원본 콘텐츠:', content);
                         return parseTextResponse(content, title);
                     }
                 } else if (data.error) {
                     throw new Error(`API 오류: ${data.error.message || 'Unknown error'}`);
                 } else {
                     console.error('Unexpected API response structure:', data);
-                    throw new Error('API 응답 구조가 예상과 다릅니다. 콘솔을 확인해주세요.');
+                    throw new Error('API 응답 구조가 예상과 다릅니다.');
                 }
             } catch (error) {
                 console.error(`API 호출 오류 (시도 ${retryCount + 1}/3):`, error);
 
-                // 재시도 가능한 오류인지 확인
                 const isRetryableError = error.message.includes('503') ||
                     error.message.includes('502') ||
                     error.message.includes('overloaded') ||
                     error.message.includes('timeout');
 
                 if (isRetryableError && retryCount < 2) {
-                    console.log(`재시도 중... (${retryCount + 2}/3)`);
-                    await new Promise(resolve => setTimeout(resolve, (retryCount + 1) * 2000)); // 점진적 대기
+                    await new Promise(resolve => setTimeout(resolve, (retryCount + 1) * 2000));
                     return callGeminiAPI(apiKey, text, title, retryCount + 1);
                 }
 
@@ -1404,9 +1352,9 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
         }
 
         function parseTextResponse(content, title) {
-            console.log('텍스트 파싱 시작:', content.substring(0, 300) + '...');
+            console.log('텍스트 파싱 시작');
 
-            // 텍스트 응답을 구조화된 형태로 파싱
+            // 기본 분석 구조
             const analysis = {
                 rhetorical_devices: [],
                 sound_devices: [],
@@ -1416,7 +1364,6 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
             };
 
             if (!content || typeof content !== 'string') {
-                console.warn('유효하지 않은 콘텐츠:', content);
                 return {
                     title: title,
                     analysis: analysis,
@@ -1424,7 +1371,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 };
             }
 
-            // 강화된 텍스트 파싱 로직
+            // 텍스트 파싱 로직
             const sections = content.split(/(?:\n\s*\n|\n(?=\d+\.))/);
             let currentSection = '';
 
@@ -1435,127 +1382,80 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 // 섹션 헤더 감지
                 if (trimmed.toLowerCase().includes('rhetorical') || trimmed.toLowerCase().includes('수사법')) {
                     currentSection = 'rhetorical_devices';
-                    continue;
                 } else if (trimmed.toLowerCase().includes('sound') || trimmed.toLowerCase().includes('음성')) {
                     currentSection = 'sound_devices';
-                    continue;
                 } else if (trimmed.toLowerCase().includes('theme') || trimmed.toLowerCase().includes('symbol') || trimmed.toLowerCase().includes('주제')) {
                     currentSection = 'themes_symbols';
-                    continue;
                 } else if (trimmed.toLowerCase().includes('style') || trimmed.toLowerCase().includes('tone') || trimmed.toLowerCase().includes('문체')) {
                     currentSection = 'style_tone';
-                    continue;
                 } else if (trimmed.toLowerCase().includes('structure') || trimmed.toLowerCase().includes('form') || trimmed.toLowerCase().includes('구조')) {
                     currentSection = 'structure_form';
-                    continue;
                 }
 
                 // 분석 항목 추출
-                const lines = trimmed.split('\n');
-                for (const line of lines) {
-                    const cleanLine = line.trim();
-                    if (!cleanLine) continue;
+                if (currentSection && trimmed) {
+                    const lines = trimmed.split('\n');
+                    for (const line of lines) {
+                        const cleanLine = line.trim();
+                        if (!cleanLine) continue;
 
-                    // 다양한 패턴으로 분석 항목 추출
-                    const patterns = [
-                        /^[-•*]\s*(.+)$/,  // 불릿 포인트
-                        /^(\w+):\s*(.+)$/,  // 콜론 구분
-                        /^"([^"]+)"\s*[-–—]\s*(.+)$/,  // 인용문과 설명
-                        /^(.+?)\s*[-–—]\s*(.+)$/  // 대시 구분
-                    ];
+                        // 다양한 패턴으로 분석 항목 추출
+                        const patterns = [
+                            /^[-•*]\s*(.+)$/,
+                            /^(\w+):\s*(.+)$/,
+                            /^"([^"]+)"\s*[-–—]\s*(.+)$/,
+                            /^(.+?)\s*[-–—]\s*(.+)$/
+                        ];
 
-                    for (const pattern of patterns) {
-                        const match = cleanLine.match(pattern);
-                        if (match && currentSection) {
-                            const item = {
-                                type: match[1] || 'Literary Device',
-                                text: match[2] || match[1] || cleanLine,
-                                explanation: match[3] || match[2] || '분석된 문학적 기법'
-                            };
+                        for (const pattern of patterns) {
+                            const match = cleanLine.match(pattern);
+                            if (match && currentSection && analysis[currentSection]) {
+                                const item = {
+                                    type: match[1] || 'Literary Device',
+                                    text: match[2] || match[1] || cleanLine,
+                                    explanation: match[3] || match[2] || '분석된 문학적 기법'
+                                };
 
-                            if (analysis[currentSection]) {
                                 analysis[currentSection].push(item);
+                                break;
                             }
-                            break;
+                        }
+
+                        // 패턴이 맞지 않으면 일반 텍스트로 처리
+                        if (currentSection && cleanLine.length > 10 && analysis[currentSection]) {
+                            analysis[currentSection].push({
+                                type: 'Literary Analysis',
+                                text: cleanLine.substring(0, 100),
+                                explanation: cleanLine
+                            });
                         }
                     }
-
-                    // 패턴이 맞지 않으면 일반 텍스트로 처리
-                    if (currentSection && cleanLine.length > 10) {
-                        analysis[currentSection].push({
-                            type: 'Literary Analysis',
-                            text: cleanLine.substring(0, 100),
-                            explanation: cleanLine
-                        });
-                    }
                 }
             }
 
-            // 섹션 헤더 감지
-            if (trimmed.match(/rhetorical|수사법|figurative/i)) {
-                currentSection = 'rhetorical_devices';
-            } else if (trimmed.match(/sound|음성|alliteration|rhyme/i)) {
-                currentSection = 'sound_devices';
-            } else if (trimmed.match(/theme|주제|symbol|상징/i)) {
-                currentSection = 'themes_symbols';
-            } else if (trimmed.match(/style|문체|tone|어조/i)) {
-                currentSection = 'style_tone';
-            } else if (trimmed.match(/structure|구조|form|형식/i)) {
-                currentSection = 'structure_form';
-            }
-
-            // 분석 항목 추출
-            if (currentSection && trimmed) {
-                // 기법 유형 감지
-                const deviceMatch = trimmed.match(/(metaphor|simile|personification|alliteration|rhyme|symbol|theme)/i);
-                if (deviceMatch) {
-                    const deviceType = deviceMatch[1];
-                    const textMatch = trimmed.match(/"([^"]+)"/);
-                    const quotedText = textMatch ? textMatch[1] : trimmed;
-
-                    analysis[currentSection].push({
-                        type: deviceType,
-                        text: quotedText,
-                        explanation: trimmed
+            // 빈 섹션에 기본 항목 추가
+            Object.keys(analysis).forEach(key => {
+                if (analysis[key].length === 0) {
+                    analysis[key].push({
+                        type: 'Analysis',
+                        text: 'Various literary elements detected',
+                        explanation: 'This poem contains multiple literary devices that contribute to its overall effect.'
                     });
-                } else if (trimmed.includes('-') || trimmed.includes('•') || trimmed.includes('*')) {
-                    // 리스트 항목 처리
-                    const cleanText = trimmed.replace(/^[-•*]\s*/, '');
-                    if (cleanText.length > 10) {
-                        analysis[currentSection].push({
-                            type: 'Literary Device',
-                            text: cleanText.substring(0, 50) + '...',
-                            explanation: cleanText
-                        });
-                    }
                 }
-            }
+            });
+
+            return {
+                title: title,
+                analysis: analysis,
+                summary: content.length > 300 ? content.substring(0, 300) + '...' : content
+            };
         }
-
-        // 빈 섹션에 기본 항목 추가
-        Object.keys(analysis).forEach(key => {
-            if (analysis[key].length === 0) {
-                analysis[key].push({
-                    type: 'Analysis',
-                    text: 'Various literary elements detected',
-                    explanation: 'This poem contains multiple literary devices that contribute to its overall effect.'
-                });
-            }
-        });
-
-        return {
-            title: title,
-            analysis: analysis,
-            summary: content.length > 300 ? content.substring(0, 300) + '...' : content
-        };
-    }
 
         function simulateProgress() {
             const progressFill = document.getElementById('progressFill');
             const progressText = document.getElementById('progressText');
             const selectedModel = document.getElementById('modelSelect').value;
 
-            // 모델별 진행 단계 및 예상 시간
             const modelSteps = {
                 'gemini-2.5-pro': [
                     { progress: 15, text: '🧠 Pro 모델로 심층 분석 시작...' },
@@ -1601,12 +1501,11 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     progressText.textContent = step.text;
                     currentStep++;
 
-                    // 모델별 다른 진행 속도
                     const delays = {
-                        'gemini-2.5-pro': 2000 + Math.random() * 3000,      // 더 느림
-                        'gemini-2.5-flash': 1000 + Math.random() * 2000,    // 보통
-                        'gemini-2.5-flash-lite': 800 + Math.random() * 1500, // 빠름
-                        'gemini-2.0-flash': 1200 + Math.random() * 2500     // 중간
+                        'gemini-2.5-pro': 2000 + Math.random() * 3000,
+                        'gemini-2.5-flash': 1000 + Math.random() * 2000,
+                        'gemini-2.5-flash-lite': 800 + Math.random() * 1500,
+                        'gemini-2.0-flash': 1200 + Math.random() * 2500
                     };
 
                     const delay = delays[selectedModel] || delays['gemini-2.5-flash'];
@@ -1625,7 +1524,6 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
             const totalDevices = Object.values(analysis).reduce((sum, category) => sum + category.length, 0);
             const categoriesWithResults = Object.values(analysis).filter(category => category.length > 0).length;
 
-            // 모델별 아이콘
             const modelIcons = {
                 'gemini-2.5-pro': '🧠',
                 'gemini-2.5-flash': '⚡',
