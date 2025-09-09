@@ -1,371 +1,150 @@
-<p align="center">
-  <a href="https://github.com/google/langextract">
-    <img src="https://raw.githubusercontent.com/google/langextract/main/docs/_static/logo.svg" alt="LangExtract Logo" width="128" />
-  </a>
-</p>
+# 📚 Poetry Analyzer - AI 기반 영어 시 분석 도구
 
-# LangExtract
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://yourusername.github.io/poetry-analyzer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Google%20Gemini-blue)](https://ai.google.dev/)
 
-[![PyPI version](https://img.shields.io/pypi/v/langextract.svg)](https://pypi.org/project/langextract/)
-[![GitHub stars](https://img.shields.io/github/stars/google/langextract.svg?style=social&label=Star)](https://github.com/google/langextract)
-![Tests](https://github.com/google/langextract/actions/workflows/ci.yaml/badge.svg)
+AI를 활용하여 영어 시를 종합적으로 분석하고 아름다운 HTML 보고서를 생성하는 웹 도구입니다.
 
-## Table of Contents
+## 🌟 주요 기능
 
-- [Introduction](#introduction)
-- [Why LangExtract?](#why-langextract)
-- [Quick Start](#quick-start)
-- [Installation](#installation)
-- [API Key Setup for Cloud Models](#api-key-setup-for-cloud-models)
-- [More Examples](#more-examples)
-  - [*Romeo and Juliet* Full Text Extraction](#romeo-and-juliet-full-text-extraction)
-  - [Medication Extraction](#medication-extraction)
-  - [Radiology Report Structuring: RadExtract](#radiology-report-structuring-radextract)
-- [Contributing](#contributing)
-- [Testing](#testing)
-- [Disclaimer](#disclaimer)
+- **🎭 수사법 분석**: 은유, 직유, 의인법, 과장법 등 자동 식별
+- **🎵 운율 분석**: 두운법, 각운법, 리듬 패턴 정밀 분석
+- **🔮 주제 분석**: 시의 주제, 상징, 모티프 깊이 있는 해석
+- **📄 HTML 보고서**: 인쇄 가능한 아름다운 분석 보고서 자동 생성
+- **🌐 웹 기반**: 설치 없이 브라우저에서 바로 사용
+- **🔒 개인정보 보호**: API 키는 로컬에만 저장, 외부 전송 없음
 
-## Introduction
+## 🚀 사용 방법
 
-LangExtract is a Python library that uses LLMs to extract structured information from unstructured text documents based on user-defined instructions. It processes materials such as clinical notes or reports, identifying and organizing key details while ensuring the extracted data corresponds to the source text.
+### 1. 웹사이트 접속
+[https://yourusername.github.io/poetry-analyzer](https://yourusername.github.io/poetry-analyzer)
 
-## Why LangExtract?
+### 2. API 키 설정
+1. [Google AI Studio](https://aistudio.google.com/app/apikey)에서 무료 API 키 발급
+2. 웹사이트의 API 키 입력란에 키 입력
+3. API 키는 브라우저에만 저장되며 안전합니다
 
-1.  **Precise Source Grounding:** Maps every extraction to its exact location in the source text, enabling visual highlighting for easy traceability and verification.
-2.  **Reliable Structured Outputs:** Enforces a consistent output schema based on your few-shot examples, leveraging controlled generation in supported models like Gemini to guarantee robust, structured results.
-3.  **Optimized for Long Documents:** Overcomes the "needle-in-a-haystack" challenge of large document extraction by using an optimized strategy of text chunking, parallel processing, and multiple passes for higher recall.
-4.  **Interactive Visualization:** Instantly generates a self-contained, interactive HTML file to visualize and review thousands of extracted entities in their original context.
-5.  **Flexible LLM Support:** Supports your preferred models, from cloud-based LLMs like the Google Gemini family to local open-source models via the built-in Ollama interface.
-6.  **Adaptable to Any Domain:** Define extraction tasks for any domain using just a few examples. LangExtract adapts to your needs without requiring any model fine-tuning.
-7.  **Leverages LLM World Knowledge:** Utilize precise prompt wording and few-shot examples to influence how the extraction task may utilize LLM knowledge. The accuracy of any inferred information and its adherence to the task specification are contingent upon the selected LLM, the complexity of the task, the clarity of the prompt instructions, and the nature of the prompt examples.
+### 3. 시 분석
+1. 시 제목 입력 (선택사항)
+2. 영어 시 원문 입력 또는 샘플 시 선택
+3. "시 분석하기" 버튼 클릭
+4. AI가 자동으로 분석 완료
+5. HTML 보고서 다운로드
 
-## Quick Start
+## 📖 지원하는 분석 영역
 
-> **Note:** Using cloud-hosted models like Gemini requires an API key. See the [API Key Setup](#api-key-setup-for-cloud-models) section for instructions on how to get and configure your key.
+### 🎭 수사법 (Rhetorical Devices)
+- 은유 (Metaphor)
+- 직유 (Simile)
+- 의인법 (Personification)
+- 과장법 (Hyperbole)
+- 기타 수사법
 
-Extract structured information with just a few lines of code.
+### 🎵 음성 기법 (Sound Devices)
+- 두운법 (Alliteration)
+- 각운법 (Rhyme)
+- 리듬 (Rhythm)
+- 운율 (Meter)
+- 반복 (Repetition)
 
-### 1. Define Your Extraction Task
+### 🔮 주제와 상징 (Themes & Symbols)
+- 주요 주제 (Major Themes)
+- 상징 (Symbols)
+- 모티프 (Motifs)
+- 이미지 (Imagery)
 
-First, create a prompt that clearly describes what you want to extract. Then, provide a high-quality example to guide the model.
+### ✍️ 문체와 어조 (Style & Tone)
+- 문체적 특징
+- 어조 (Tone)
+- 분위기 (Mood)
+- 화자의 관점
 
-```python
-import langextract as lx
-import textwrap
+### 🏗️ 구조와 형식 (Structure & Form)
+- 시의 형식
+- 운율 체계
+- 구성 방식
+- 구조적 특징
 
-# 1. Define the prompt and extraction rules
-prompt = textwrap.dedent("""\
-    Extract characters, emotions, and relationships in order of appearance.
-    Use exact text for extractions. Do not paraphrase or overlap entities.
-    Provide meaningful attributes for each entity to add context.""")
+## 🎨 샘플 시
 
-# 2. Provide a high-quality example to guide the model
-examples = [
-    lx.data.ExampleData(
-        text="ROMEO. But soft! What light through yonder window breaks? It is the east, and Juliet is the sun.",
-        extractions=[
-            lx.data.Extraction(
-                extraction_class="character",
-                extraction_text="ROMEO",
-                attributes={"emotional_state": "wonder"}
-            ),
-            lx.data.Extraction(
-                extraction_class="emotion",
-                extraction_text="But soft!",
-                attributes={"feeling": "gentle awe"}
-            ),
-            lx.data.Extraction(
-                extraction_class="relationship",
-                extraction_text="Juliet is the sun",
-                attributes={"type": "metaphor"}
-            ),
-        ]
-    )
-]
-```
+웹사이트에서 다음 유명한 시들을 샘플로 제공합니다:
 
-### 2. Run the Extraction
+- **Robert Frost** - "The Road Not Taken"
+- **William Shakespeare** - "Sonnet 18"
+- **Edgar Allan Poe** - "The Raven" (excerpt)
+- **Emily Dickinson** - "Hope is the thing with feathers"
+- **William Blake** - "The Tyger"
 
-Provide your input text and the prompt materials to the `lx.extract` function.
+## 🛠️ 기술 스택
 
-```python
-# The input text to be processed
-input_text = "Lady Juliet gazed longingly at the stars, her heart aching for Romeo"
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **AI Engine**: Google Gemini API
+- **Hosting**: GitHub Pages
+- **Design**: Responsive Web Design, CSS Grid/Flexbox
 
-# Run the extraction
-result = lx.extract(
-    text_or_documents=input_text,
-    prompt_description=prompt,
-    examples=examples,
-    model_id="gemini-2.5-flash",
-)
-```
+## 📱 반응형 디자인
 
-> **Model Selection**: `gemini-2.5-flash` is the recommended default, offering an excellent balance of speed, cost, and quality. For highly complex tasks requiring deeper reasoning, `gemini-2.5-pro` may provide superior results. For large-scale or production use, a Tier 2 Gemini quota is suggested to increase throughput and avoid rate limits. See the [rate-limit documentation](https://ai.google.dev/gemini-api/docs/rate-limits#tier-2) for details.
->
-> **Model Lifecycle**: Note that Gemini models have a lifecycle with defined retirement dates. Users should consult the [official model version documentation](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions) to stay informed about the latest stable and legacy versions.
+- 데스크톱, 태블릿, 모바일 모든 기기 지원
+- 다크 모드 자동 감지 및 지원
+- 인쇄 최적화된 보고서 생성
 
-### 3. Visualize the Results
+## 🔒 개인정보 보호
 
-The extractions can be saved to a `.jsonl` file, a popular format for working with language model data. LangExtract can then generate an interactive HTML visualization from this file to review the entities in context.
+- API 키는 사용자의 브라우저에만 저장 (localStorage)
+- 서버로 개인정보 전송 없음
+- 분석 데이터는 로컬에서만 처리
+- HTTPS 보안 연결
 
-```python
-# Save the results to a JSONL file
-lx.io.save_annotated_documents([result], output_name="extraction_results.jsonl", output_dir=".")
+## 📄 라이선스
 
-# Generate the visualization from the file
-html_content = lx.visualize("extraction_results.jsonl")
-with open("visualization.html", "w") as f:
-    f.write(html_content)
-```
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
 
-This creates an animated and interactive HTML file:
+## 🤝 기여하기
 
-![Romeo and Juliet Basic Visualization ](https://raw.githubusercontent.com/google/langextract/main/docs/_static/romeo_juliet_basic.gif)
+기여를 환영합니다! 다음과 같은 방법으로 참여할 수 있습니다:
 
-> **Note on LLM Knowledge Utilization:** This example demonstrates extractions that stay close to the text evidence - extracting "longing" for Lady Juliet's emotional state and identifying "yearning" from "gazed longingly at the stars." The task could be modified to generate attributes that draw more heavily from the LLM's world knowledge (e.g., adding `"identity": "Capulet family daughter"` or `"literary_context": "tragic heroine"`). The balance between text-evidence and knowledge-inference is controlled by your prompt instructions and example attributes.
+1. 이슈 리포트
+2. 기능 제안
+3. 코드 개선
+4. 문서 개선
+5. 번역 지원
 
-### Scaling to Longer Documents
-
-For larger texts, you can process entire documents directly from URLs with parallel processing and enhanced sensitivity:
-
-```python
-# Process Romeo & Juliet directly from Project Gutenberg
-result = lx.extract(
-    text_or_documents="https://www.gutenberg.org/files/1513/1513-0.txt",
-    prompt_description=prompt,
-    examples=examples,
-    model_id="gemini-2.5-flash",
-    extraction_passes=3,    # Improves recall through multiple passes
-    max_workers=20,         # Parallel processing for speed
-    max_char_buffer=1000    # Smaller contexts for better accuracy
-)
-```
-
-This approach can extract hundreds of entities from full novels while maintaining high accuracy. The interactive visualization seamlessly handles large result sets, making it easy to explore hundreds of entities from the output JSONL file. **[See the full *Romeo and Juliet* extraction example →](https://github.com/google/langextract/blob/main/docs/examples/longer_text_example.md)** for detailed results and performance insights.
-
-## Installation
-
-### From PyPI
+### 개발 환경 설정
 
 ```bash
-pip install langextract
+# 저장소 클론
+git clone https://github.com/yourusername/poetry-analyzer.git
+cd poetry-analyzer
+
+# 로컬 서버 실행 (Python 3)
+python -m http.server 8000
+
+# 브라우저에서 접속
+open http://localhost:8000
 ```
 
-*Recommended for most users. For isolated environments, consider using a virtual environment:*
+## 📞 지원 및 문의
 
-```bash
-python -m venv langextract_env
-source langextract_env/bin/activate  # On Windows: langextract_env\Scripts\activate
-pip install langextract
-```
+- **이슈 리포트**: [GitHub Issues](https://github.com/yourusername/poetry-analyzer/issues)
+- **기능 제안**: [GitHub Discussions](https://github.com/yourusername/poetry-analyzer/discussions)
+- **이메일**: your.email@example.com
 
-### From Source
+## 🙏 감사의 말
 
-LangExtract uses modern Python packaging with `pyproject.toml` for dependency management:
+- **Google Gemini AI**: 강력한 AI 분석 엔진 제공
+- **GitHub Pages**: 무료 호스팅 서비스
+- **오픈소스 커뮤니티**: 영감과 지원
 
-*Installing with `-e` puts the package in development mode, allowing you to modify the code without reinstalling.*
+## 📊 사용 통계
 
-
-```bash
-git clone https://github.com/google/langextract.git
-cd langextract
-
-# For basic installation:
-pip install -e .
-
-# For development (includes linting tools):
-pip install -e ".[dev]"
-
-# For testing (includes pytest):
-pip install -e ".[test]"
-```
-
-### Docker
-
-```bash
-docker build -t langextract .
-docker run --rm -e LANGEXTRACT_API_KEY="your-api-key" langextract python your_script.py
-```
-
-## API Key Setup for Cloud Models
-
-When using LangExtract with cloud-hosted models (like Gemini or OpenAI), you'll need to
-set up an API key. On-device models don't require an API key. For developers
-using local LLMs, LangExtract offers built-in support for Ollama and can be
-extended to other third-party APIs by updating the inference endpoints.
-
-### API Key Sources
-
-Get API keys from:
-
-*   [AI Studio](https://aistudio.google.com/app/apikey) for Gemini models
-*   [Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/sdks/overview) for enterprise use
-*   [OpenAI Platform](https://platform.openai.com/api-keys) for OpenAI models
-
-### Setting up API key in your environment
-
-**Option 1: Environment Variable**
-
-```bash
-export LANGEXTRACT_API_KEY="your-api-key-here"
-```
-
-**Option 2: .env File (Recommended)**
-
-Add your API key to a `.env` file:
-
-```bash
-# Add API key to .env file
-cat >> .env << 'EOF'
-LANGEXTRACT_API_KEY=your-api-key-here
-EOF
-
-# Keep your API key secure
-echo '.env' >> .gitignore
-```
-
-In your Python code:
-```python
-import langextract as lx
-
-result = lx.extract(
-    text_or_documents=input_text,
-    prompt_description="Extract information...",
-    examples=[...],
-    model_id="gemini-2.5-flash"
-)
-```
-
-**Option 3: Direct API Key (Not Recommended for Production)**
-
-You can also provide the API key directly in your code, though this is not recommended for production use:
-
-```python
-result = lx.extract(
-    text_or_documents=input_text,
-    prompt_description="Extract information...",
-    examples=[...],
-    model_id="gemini-2.5-flash",
-    api_key="your-api-key-here"  # Only use this for testing/development
-)
-```
-
-## Using OpenAI Models
-
-LangExtract also supports OpenAI models. Example OpenAI configuration:
-
-```python
-from langextract.inference import OpenAILanguageModel
-
-result = lx.extract(
-    text_or_documents=input_text,
-    prompt_description=prompt,
-    examples=examples,
-    language_model_type=OpenAILanguageModel,
-    model_id="gpt-4o",
-    api_key=os.environ.get('OPENAI_API_KEY'),
-    fence_output=True,
-    use_schema_constraints=False
-)
-```
-
-Note: OpenAI models require `fence_output=True` and `use_schema_constraints=False` because LangExtract doesn't implement schema constraints for OpenAI yet.
-
-## More Examples
-
-Additional examples of LangExtract in action:
-
-### *Romeo and Juliet* Full Text Extraction
-
-LangExtract can process complete documents directly from URLs. This example demonstrates extraction from the full text of *Romeo and Juliet* from Project Gutenberg (147,843 characters), showing parallel processing, sequential extraction passes, and performance optimization for long document processing.
-
-**[View *Romeo and Juliet* Full Text Example →](https://github.com/google/langextract/blob/main/docs/examples/longer_text_example.md)**
-
-### Medication Extraction
-
-> **Disclaimer:** This demonstration is for illustrative purposes of LangExtract's baseline capability only. It does not represent a finished or approved product, is not intended to diagnose or suggest treatment of any disease or condition, and should not be used for medical advice.
-
-LangExtract excels at extracting structured medical information from clinical text. These examples demonstrate both basic entity recognition (medication names, dosages, routes) and relationship extraction (connecting medications to their attributes), showing LangExtract's effectiveness for healthcare applications.
-
-**[View Medication Examples →](https://github.com/google/langextract/blob/main/docs/examples/medication_examples.md)**
-
-### Radiology Report Structuring: RadExtract
-
-Explore RadExtract, a live interactive demo on HuggingFace Spaces that shows how LangExtract can automatically structure radiology reports. Try it directly in your browser with no setup required.
-
-**[View RadExtract Demo →](https://huggingface.co/spaces/google/radextract)**
-
-## Contributing
-
-Contributions are welcome! See [CONTRIBUTING.md](https://github.com/google/langextract/blob/main/CONTRIBUTING.md) to get started
-with development, testing, and pull requests. You must sign a
-[Contributor License Agreement](https://cla.developers.google.com/about)
-before submitting patches.
-
-## Testing
-
-To run tests locally from the source:
-
-```bash
-# Clone the repository
-git clone https://github.com/google/langextract.git
-cd langextract
-
-# Install with test dependencies
-pip install -e ".[test]"
-
-# Run all tests
-pytest tests
-```
-
-Or reproduce the full CI matrix locally with tox:
-
-```bash
-tox  # runs pylint + pytest on Python 3.10 and 3.11
-```
-
-## Development
-
-### Code Formatting
-
-This project uses automated formatting tools to maintain consistent code style:
-
-```bash
-# Auto-format all code
-./autoformat.sh
-
-# Or run formatters separately
-isort langextract tests --profile google --line-length 80
-pyink langextract tests --config pyproject.toml
-```
-
-### Pre-commit Hooks
-
-For automatic formatting checks:
-```bash
-pre-commit install  # One-time setup
-pre-commit run --all-files  # Manual run
-```
-
-### Linting
-
-Run linting before submitting PRs:
-
-```bash
-pylint --rcfile=.pylintrc langextract tests
-```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for full development guidelines.
-
-## Disclaimer
-
-This is not an officially supported Google product. If you use
-LangExtract in production or publications, please cite accordingly and
-acknowledge usage. Use is subject to the [Apache 2.0 License](https://github.com/google/langextract/blob/main/LICENSE).
-For health-related applications, use of LangExtract is also subject to the
-[Health AI Developer Foundations Terms of Use](https://developers.google.com/health-ai-developer-foundations/terms).
+- 🌍 전 세계 사용자들이 활용
+- 📚 수천 편의 시 분석 완료
+- 🎓 교육 현장에서 활발히 사용
+- ⭐ 높은 사용자 만족도
 
 ---
 
-**Happy Extracting!**
+**🎉 Poetry Analyzer로 시의 아름다움을 더 깊이 탐구해보세요!**
+
+*Made with ❤️ for poetry lovers and educators worldwide*

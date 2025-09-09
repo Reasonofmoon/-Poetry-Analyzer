@@ -1,0 +1,54 @@
+# GitHub Pages 설정
+title: Poetry Analyzer
+description: AI 기반 영어 시 분석 도구 - 수사법, 운율, 주제를 자동으로 분석합니다
+url: "https://yourusername.github.io"
+baseurl: "/poetry-analyzer"
+
+# 테마 설정
+theme: minima
+
+# 플러그인
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO 설정
+lang: ko
+author: Your Name
+twitter:
+  username: yourusername
+  card: summary_large_image
+
+# 소셜 미디어
+social:
+  name: Poetry Analyzer
+  links:
+    - https://github.com/yourusername/poetry-analyzer
+
+# Google Analytics (선택사항)
+# google_analytics: G-XXXXXXXXXX
+
+# 제외할 파일들
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - .github/
+
+# 포함할 파일들
+include:
+  - _pages
+
+# 마크다운 설정
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# 컬렉션 설정
+collections:
+  pages:
+    output: true
+    permalink: /:name/

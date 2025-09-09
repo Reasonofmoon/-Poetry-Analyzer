@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Poetry Analyzer - AI 기반 시 분석 도구</title>
+    <meta name="description" content="AI를 활용한 영어 시 분석 도구. 수사법, 운율, 주제 등을 자동으로 분석하여 교육 자료를 생성합니다.">
+    <meta name="keywords" content="poetry analysis, AI, literature, education, 시 분석, 문학 분석">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Poetry Analyzer - AI 기반 시 분석 도구">
+    <meta property="og:description" content="영어 시를 AI로 분석하여 수사법, 운율, 주제 등을 자동으로 찾아주는 교육용 도구">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/poetry-analyzer">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+        }
+        
+        .input-section h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        #poemInput {
+            min-height: 250px;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            resize: vertical;
+        }
+        
+        .char-count {
+            text-align: right;
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        .sample-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .sample-section h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .sample-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .sample-btn {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .sample-btn:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        
+        .api-key-section {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .api-key-section h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .api-key-section p {
+            color: #856404;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .api-key-section a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .api-key-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #495057;
+            border: 2px solid #e9ecef;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 50px;
+            color: #667eea;
+        }
+        
+        .loading .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #e9ecef;
+            border-top: 6px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
+        }
+        
+        .loading h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .loading p {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 25px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .error-message h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .results {
+            display: none;
+            margin-top: 40px;
+        }
+        
+        .results-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+        }
+        
+        .results-header h2 {
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .results-content {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            padding: 40px;
+        }
+        
+        .download-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .download-section h3 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .preview-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .preview-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .preview-content {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fafafa;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 30px;
+            opacity: 0.9;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+        }
+        
+        .footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 애니메이션 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
+            
+            .main-content {
+                padding: 25px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .sample-buttons {
+                flex-direction: column;
+            }
+            
+            .sample-btn {
+                text-align: center;
+            }
+        }
+        
+        /* 다크 모드 지원 */
+        @media (prefers-color-scheme: dark) {
+            .main-content {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                background: #4a5568;
+                color: #e2e8f0;
+                border-color: #718096;
+            }
+            
+            .sample-section {
+                background: #4a5568;
+                border-color: #718096;
+            }
+            
+            .sample-btn {
+                background: #4a5568;
+                color: #e2e8f0;
+                border-color: #718096;
+            }
+            
+            .preview-section {
+                background: #4a5568;
+                border-color: #718096;
+            }
+            
+            .preview-content {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Poetry Analyzer</h1>
+            <p>AI 기반 영어 시 분석 도구 - 수사법, 운율, 주제를 자동으로 분석합니다</p>
+        </div>
+        
+        <div class="main-content">
+            <!-- 주요 기능 소개 -->
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎭</span>
+                    <div class="feature-title">수사법 분석</div>
+                    <div class="feature-desc">은유, 직유, 의인법 등 다양한 수사법을 자동으로 식별</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎵</span>
+                    <div class="feature-title">운율 분석</div>
+                    <div class="feature-desc">두운법, 각운법, 리듬 패턴을 정밀하게 분석</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔮</span>
+                    <div class="feature-title">주제 분석</div>
+                    <div class="feature-desc">시의 주제, 상징, 모티프를 깊이 있게 해석</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📄</span>
+                    <div class="feature-title">HTML 보고서</div>
+                    <div class="feature-desc">아름다운 HTML 형태의 분석 보고서 자동 생성</div>
+                </div>
+            </div>
+            
+            <!-- API 키 설정 안내 -->
+            <div class="api-key-section">
+                <h3>🔑 API 키 설정 필요</h3>
+                <p>이 도구는 Google Gemini API를 사용합니다. 무료로 사용할 수 있으며, 아래 단계를 따라 API 키를 설정해주세요:</p>
+                <ol style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>에서 무료 API 키 발급</li>
+                    <li>아래 입력란에 API 키를 입력</li>
+                    <li>API 키는 브라우저에만 저장되며 외부로 전송되지 않습니다</li>
+                </ol>
+            </div>
+            
+            <!-- API 키 입력 -->
+            <div class="form-group">
+                <label for="apiKey">🔑 Google Gemini API 키</label>
+                <input type="password" id="apiKey" placeholder="여기에 API 키를 입력하세요 (예: AIzaSy...)">
+                <div class="char-count">API 키는 로컬에만 저장되며 안전합니다</div>
+            </div>
+            
+            <!-- 시 제목 입력 -->
+            <div class="input-section">
+                <h2>📝 시 정보 입력</h2>
+                
+                <div class="form-group">
+                    <label for="poemTitle">시 제목 (선택사항)</label>
+                    <input type="text" id="poemTitle" placeholder="예: The Road Not Taken by Robert Frost">
+                </div>
+                
+                <!-- 시 원문 입력 -->
+                <div class="form-group">
+                    <label for="poemInput">시 원문</label>
+                    <textarea id="poemInput" placeholder="영어 시의 원문을 입력하세요...
+
+예시:
+Two roads diverged in a yellow wood,
+And sorry I could not travel both
+And be one traveler, long I stood
+And looked down one as far as I could
+To where it bent in the undergrowth;"></textarea>
+                    <div class="char-count" id="charCount">0 글자</div>
+                </div>
+                
+                <!-- 샘플 시 -->
+                <div class="sample-section">
+                    <h3>📖 유명한 시 샘플</h3>
+                    <div class="sample-buttons">
+                        <button class="sample-btn" onclick="loadSample('frost')">Robert Frost - The Road Not Taken</button>
+                        <button class="sample-btn" onclick="loadSample('shakespeare')">Shakespeare - Sonnet 18</button>
+                        <button class="sample-btn" onclick="loadSample('poe')">Edgar Allan Poe - The Raven</button>
+                        <button class="sample-btn" onclick="loadSample('dickinson')">Emily Dickinson - Hope</button>
+                        <button class="sample-btn" onclick="loadSample('blake')">William Blake - The Tyger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 분석 버튼 -->
+            <div class="button-group">
+                <button class="btn btn-primary" id="analyzeBtn" onclick="analyzePoem()">
+                    🔍 시 분석하기
+                </button>
+                <button class="btn btn-secondary" onclick="clearAll()">
+                    🗑️ 초기화
+                </button>
+            </div>
+            
+            <!-- 로딩 상태 -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <h3>AI가 시를 분석하고 있습니다...</h3>
+                <p>수사법, 운율, 주제 등을 종합적으로 분석 중입니다.</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">분석 준비 중...</p>
+            </div>
+            
+            <!-- 오류 메시지 -->
+            <div class="error-message" id="errorMessage">
+                <h4>❌ 오류 발생</h4>
+                <p id="errorText"></p>
+            </div>
+            
+            <!-- 분석 결과 -->
+            <div class="results" id="results">
+                <div class="results-header">
+                    <h2>🎉 분석 완료!</h2>
+                    <p>시의 다양한 문학적 요소들을 발견했습니다.</p>
+                    <div class="results-stats" id="resultsStats">
+                        <!-- 통계 정보가 여기에 표시됩니다 -->
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="download-section">
+                        <h3>📄 분석 보고서 다운로드</h3>
+                        <button class="btn btn-primary" onclick="downloadReport()">
+                            💾 HTML 보고서 다운로드
+                        </button>
+                    </div>
+                    
+                    <!-- 분석 결과 미리보기 -->
+                    <div class="preview-section">
+                        <div class="preview-title">
+                            <span>👁️</span>
+                            <span>분석 결과 미리보기</span>
+                        </div>
+                        <div class="preview-content" id="previewContent">
+                            <!-- 분석 결과 미리보기가 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🤖 Powered by Google Gemini AI & LangExtract</p>
+            <p>📚 교육용 시 분석 도구 - 무료로 사용하세요</p>
+            <p>💡 <a href="https://github.com/yourusername/poetry-analyzer" target="_blank">GitHub에서 소스 코드 보기</a></p>
+        </div>
+    </div>
+
+    <script>
+        // 전역 변수
+        let currentAnalysisResult = null;
+        let analysisInProgress = false;
+        
+        // 샘플 시 데이터
+        const samplePoems = {
+            frost: {
+                title: "The Road Not Taken by Robert Frost",
+                text: `Two roads diverged in a yellow wood,
+And sorry I could not travel both
+And be one traveler, long I stood
+And looked down one as far as I could
+To where it bent in the undergrowth;
+
+Then took the other, as just as fair,
+And having perhaps the better claim,
+Because it was grassy and wanted wear;
+Though as for that the passing there
+Had worn them really about the same,
+
+And both that morning equally lay
+In leaves no step had trodden black.
+Oh, I kept the first for another day!
+Yet knowing how way leads on to way,
+I doubted if I should ever be back.
+
+I shall be telling this with a sigh
+Somewhere ages and ages hence:
+Two roads diverged in a wood, and I—
+I took the one less traveled by,
+And that has made all the difference.`
+            },
+            
+            shakespeare: {
+                title: "Sonnet 18 by William Shakespeare",
+                text: `Shall I compare thee to a summer's day?
+Thou art more lovely and more temperate:
+Rough winds do shake the darling buds of May,
+And summer's lease hath all too short a date:
+Sometime too hot the eye of heaven shines,
+And often is his gold complexion dimm'd;
+And every fair from fair sometime declines,
+By chance or nature's changing course, untrimm'd;
+But thy eternal summer shall not fade,
+Nor lose possession of that fair thou owest;
+Nor shall Death brag thou wander'st in his shade,
+When in eternal lines to time thou growest:
+So long as men can breathe or eyes can see,
+So long lives this, and this gives life to thee.`
+            },
+            
+            poe: {
+                title: "The Raven by Edgar Allan Poe (excerpt)",
+                text: `Once upon a midnight dreary, while I pondered, weak and weary,
+Over many a quaint and curious volume of forgotten lore—
+While I nodded, nearly napping, suddenly there came a tapping,
+As of some one gently rapping, rapping at my chamber door.
+"'Tis some visitor," I muttered, "tapping at my chamber door—
+Only this and nothing more."
+
+Ah, distinctly I remember it was in the bleak December;
+And each separate dying ember wrought its ghost upon the floor.
+Eagerly I wished the morrow;—vainly I had sought to borrow
+From my books surcease of sorrow—sorrow for the lost Lenore—
+For the rare and radiant maiden whom the angels name Lenore—
+Nameless here for evermore.`
+            },
+            
+            dickinson: {
+                title: "Hope is the thing with feathers by Emily Dickinson",
+                text: `Hope is the thing with feathers
+That perches in the soul,
+And sings the tune without the words,
+And never stops at all,
+
+And sweetest in the gale is heard;
+And sore must be the storm
+That could abash the little bird
+That kept so many warm.
+
+I've heard it in the chillest land,
+And on the strangest sea;
+Yet, never, in extremity,
+It asked a crumb of me.`
+            },
+            
+            blake: {
+                title: "The Tyger by William Blake",
+                text: `Tyger Tyger, burning bright,
+In the forests of the night;
+What immortal hand or eye,
+Could frame thy fearful symmetry?
+
+In what distant deeps or skies.
+Burnt the fire of thine eyes?
+On what wings dare he aspire?
+What the hand, dare seize the fire?
+
+And what shoulder, & what art,
+Could twist the sinews of thy heart?
+And when thy heart began to beat,
+What dread hand? & what dread feet?`
+            }
+        };
+        
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCharCount();
+            loadApiKey();
+            setupEventListeners();
+        });
+        
+        function setupEventListeners() {
+            // 텍스트 입력 시 글자 수 업데이트
+            document.getElementById('poemInput').addEventListener('input', updateCharCount);
+            
+            // API 키 저장
+            document.getElementById('apiKey').addEventListener('change', saveApiKey);
+        }
+        
+        function updateCharCount() {
+            const text = document.getElementById('poemInput').value;
+            const count = text.length;
+            document.getElementById('charCount').textContent = count.toLocaleString() + ' 글자';
+        }
+        
+        function saveApiKey() {
+            const apiKey = document.getElementById('apiKey').value;
+            if (apiKey) {
+                localStorage.setItem('gemini_api_key', apiKey);
+            }
+        }
+        
+        function loadApiKey() {
+            const savedApiKey = localStorage.getItem('gemini_api_key');
+            if (savedApiKey) {
+                document.getElementById('apiKey').value = savedApiKey;
+            }
+        }
+        
+        function loadSample(type) {
+            const sample = samplePoems[type];
+            if (sample) {
+                document.getElementById('poemTitle').value = sample.title;
+                document.getElementById('poemInput').value = sample.text;
+                updateCharCount();
+            }
+        }
+        
+        function clearAll() {
+            document.getElementById('poemTitle').value = '';
+            document.getElementById('poemInput').value = '';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            currentAnalysisResult = null;
+            updateCharCount();
+        }
+        
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        async function analyzePoem() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const title = document.getElementById('poemTitle').value.trim() || '시 분석';
+            const text = document.getElementById('poemInput').value.trim();
+            
+            // 입력 검증
+            if (!apiKey) {
+                showError('Google Gemini API 키를 입력해주세요. AI Studio에서 무료로 발급받을 수 있습니다.');
+                return;
+            }
+            
+            if (!text) {
+                showError('분석할 시의 원문을 입력해주세요.');
+                return;
+            }
+            
+            if (analysisInProgress) {
+                return;
+            }
+            
+            analysisInProgress = true;
+            hideError();
+            
+            // UI 상태 변경
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            
+            // 진행률 시뮬레이션
+            simulateProgress();
+            
+            try {
+                // Gemini API 직접 호출
+                const result = await callGeminiAPI(apiKey, text, title);
+                
+                if (result) {
+                    currentAnalysisResult = result;
+                    displayResults(result);
+                } else {
+                    showError('분석 중 오류가 발생했습니다. API 키를 확인하고 다시 시도해주세요.');
+                }
+            } catch (error) {
+                console.error('Analysis error:', error);
+                showError('분석 중 오류가 발생했습니다: ' + error.message);
+            } finally {
+                analysisInProgress = false;
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+        
+        async function callGeminiAPI(apiKey, text, title) {
+            const prompt = `다음 영어 시를 종합적으로 분석해주세요:
+
+제목: ${title}
+
+시 원문:
+${text}
+
+다음 측면에서 분석해주세요:
+1. 수사법 (Rhetorical Devices): 은유, 직유, 의인법, 과장법 등
+2. 음성 기법 (Sound Devices): 두운법, 각운법, 리듬, 운율 등
+3. 주제와 상징 (Themes & Symbols): 주요 주제, 상징, 모티프 등
+4. 문체와 어조 (Style & Tone): 문체적 특징, 어조, 분위기 등
+5. 구조와 형식 (Structure & Form): 시의 형식, 구성, 운율 체계 등
+
+각 분석 항목에 대해 구체적인 예시와 함께 설명해주세요.
+분석 결과를 JSON 형태로 구조화해서 제공해주세요.
+
+JSON 형식:
+{
+  "title": "시 제목",
+  "analysis": {
+    "rhetorical_devices": [
+      {
+        "type": "기법 유형",
+        "text": "해당 구절",
+        "explanation": "설명"
+      }
+    ],
+    "sound_devices": [...],
+    "themes_symbols": [...],
+    "style_tone": [...],
+    "structure_form": [...]
+  },
+  "summary": "전체적인 분석 요약"
+}`;
+
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }]
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API 호출 실패: ${response.status} ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                const content = data.candidates[0].content.parts[0].text;
+                
+                // JSON 추출 시도
+                try {
+                    const jsonMatch = content.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        return JSON.parse(jsonMatch[0]);
+                    } else {
+                        // JSON이 없으면 텍스트 파싱
+                        return parseTextResponse(content, title);
+                    }
+                } catch (e) {
+                    // JSON 파싱 실패 시 텍스트 파싱
+                    return parseTextResponse(content, title);
+                }
+            } else {
+                throw new Error('API 응답에서 콘텐츠를 찾을 수 없습니다.');
+            }
+        }
+        
+        function parseTextResponse(content, title) {
+            // 텍스트 응답을 구조화된 형태로 파싱
+            const analysis = {
+                rhetorical_devices: [],
+                sound_devices: [],
+                themes_symbols: [],
+                style_tone: [],
+                structure_form: []
+            };
+            
+            // 간단한 텍스트 파싱 로직
+            const lines = content.split('\n');
+            let currentSection = '';
+            
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (trimmed.includes('수사법') || trimmed.includes('Rhetorical')) {
+                    currentSection = 'rhetorical_devices';
+                } else if (trimmed.includes('음성') || trimmed.includes('Sound')) {
+                    currentSection = 'sound_devices';
+                } else if (trimmed.includes('주제') || trimmed.includes('Theme')) {
+                    currentSection = 'themes_symbols';
+                } else if (trimmed.includes('문체') || trimmed.includes('Style')) {
+                    currentSection = 'style_tone';
+                } else if (trimmed.includes('구조') || trimmed.includes('Structure')) {
+                    currentSection = 'structure_form';
+                } else if (trimmed && currentSection && (trimmed.includes('-') || trimmed.includes('•'))) {
+                    analysis[currentSection].push({
+                        type: '분석 항목',
+                        text: trimmed,
+                        explanation: trimmed
+                    });
+                }
+            }
+            
+            return {
+                title: title,
+                analysis: analysis,
+                summary: content.substring(0, 500) + '...'
+            };
+        }
+        
+        function simulateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            const steps = [
+                { progress: 20, text: '시 구조 분석 중...' },
+                { progress: 40, text: '수사법 탐지 중...' },
+                { progress: 60, text: '운율 패턴 분석 중...' },
+                { progress: 80, text: '주제 해석 중...' },
+                { progress: 95, text: '보고서 생성 중...' },
+                { progress: 100, text: '분석 완료!' }
+            ];
+            
+            let currentStep = 0;
+            
+            const updateProgress = () => {
+                if (currentStep < steps.length && analysisInProgress) {
+                    const step = steps[currentStep];
+                    progressFill.style.width = step.progress + '%';
+                    progressText.textContent = step.text;
+                    currentStep++;
+                    
+                    setTimeout(updateProgress, 1000 + Math.random() * 2000);
+                }
+            };
+            
+            updateProgress();
+        }
+        
+        function displayResults(result) {
+            const analysis = result.analysis;
+            
+            // 통계 계산
+            const totalDevices = Object.values(analysis).reduce((sum, category) => sum + category.length, 0);
+            const categoriesWithResults = Object.values(analysis).filter(category => category.length > 0).length;
+            
+            // 통계 표시
+            document.getElementById('resultsStats').innerHTML = `
+                <div class="stat-card">
+                    <span class="stat-number">${totalDevices}</span>
+                    <span class="stat-label">발견된 기법</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">${categoriesWithResults}</span>
+                    <span class="stat-label">분석 영역</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">${document.getElementById('poemInput').value.split(' ').length}</span>
+                    <span class="stat-label">단어 수</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">${document.getElementById('poemInput').value.split('\n').length}</span>
+                    <span class="stat-label">행 수</span>
+                </div>
+            `;
+            
+            // 미리보기 생성
+            let previewHtml = `<h3>${result.title}</h3><br>`;
+            previewHtml += `<p><strong>전체 요약:</strong> ${result.summary}</p><br>`;
+            
+            const categoryNames = {
+                rhetorical_devices: '🎭 수사법',
+                sound_devices: '🎵 음성 기법',
+                themes_symbols: '🔮 주제와 상징',
+                style_tone: '✍️ 문체와 어조',
+                structure_form: '🏗️ 구조와 형식'
+            };
+            
+            for (const [key, items] of Object.entries(analysis)) {
+                if (items.length > 0) {
+                    previewHtml += `<h4>${categoryNames[key]} (${items.length}개)</h4>`;
+                    items.slice(0, 3).forEach(item => {
+                        previewHtml += `<p><strong>${item.type}:</strong> ${item.text}</p>`;
+                        if (item.explanation && item.explanation !== item.text) {
+                            previewHtml += `<p style="margin-left: 20px; color: #666;"><em>${item.explanation}</em></p>`;
+                        }
+                    });
+                    if (items.length > 3) {
+                        previewHtml += `<p><em>... 외 ${items.length - 3}개 더</em></p>`;
+                    }
+                    previewHtml += '<br>';
+                }
+            }
+            
+            document.getElementById('previewContent').innerHTML = previewHtml;
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function generateHTMLReport(result) {
+            const analysis = result.analysis;
+            const poemText = document.getElementById('poemInput').value;
+            
+            return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${result.title} - 시 분석 보고서</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .poem-text {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            margin: 30px 0;
+            font-style: italic;
+            white-space: pre-line;
+        }
+        .analysis-section {
+            margin: 40px 0;
+        }
+        .section-title {
+            color: #495057;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        .analysis-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .item-type {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .item-text {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .item-explanation {
+            color: #6c757d;
+            font-style: italic;
+        }
+        .summary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .summary h2 {
+            margin-bottom: 15px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        @media print {
+            body { font-size: 12pt; }
+            .header { page-break-after: avoid; }
+            .analysis-item { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 시 분석 보고서</h1>
+        <h2>${result.title}</h2>
+        <p>생성일: ${new Date().toLocaleDateString('ko-KR')}</p>
+    </div>
+    
+    <div class="poem-text">
+        <h3>📜 원문</h3>
+        ${poemText}
+    </div>
+    
+    ${Object.entries(analysis).map(([key, items]) => {
+        if (items.length === 0) return '';
+        
+        const categoryNames = {
+            rhetorical_devices: '🎭 수사법 분석',
+            sound_devices: '🎵 음성 기법 분석',
+            themes_symbols: '🔮 주제와 상징 분석',
+            style_tone: '✍️ 문체와 어조 분석',
+            structure_form: '🏗️ 구조와 형식 분석'
+        };
+        
+        return `
+        <div class="analysis-section">
+            <h2 class="section-title">${categoryNames[key]}</h2>
+            ${items.map(item => `
+                <div class="analysis-item">
+                    <div class="item-type">${item.type}</div>
+                    <div class="item-text">"${item.text}"</div>
+                    <div class="item-explanation">${item.explanation}</div>
+                </div>
+            `).join('')}
+        </div>
+        `;
+    }).join('')}
+    
+    <div class="summary">
+        <h2>📊 종합 분석</h2>
+        <p>${result.summary}</p>
+    </div>
+    
+    <div class="footer">
+        <p>🤖 AI 기반 시 분석 도구로 생성됨</p>
+        <p>📚 Poetry Analyzer - Powered by Google Gemini AI</p>
+    </div>
+</body>
+</html>`;
+        }
+        
+        function downloadReport() {
+            if (!currentAnalysisResult) {
+                showError('다운로드할 분석 결과가 없습니다.');
+                return;
+            }
+            
+            const htmlContent = generateHTMLReport(currentAnalysisResult);
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${currentAnalysisResult.title.replace(/[^a-zA-Z0-9가-힣\s]/g, '_')}_분석보고서.html`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
