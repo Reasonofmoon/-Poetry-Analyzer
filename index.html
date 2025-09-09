@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📚 Poetry Analyzer - AI 기반 시 분석 도구</title>
     <meta name="description" content="AI를 활용한 영어 시 분석 도구. 수사법, 운율, 주제 등을 자동으로 분석하여 교육 자료를 생성합니다.">
     <meta name="keywords" content="poetry analysis, AI, literature, education, 시 분석, 문학 분석">
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Poetry Analyzer - AI 기반 시 분석 도구">
     <meta property="og:description" content="영어 시를 AI로 분석하여 수사법, 운율, 주제 등을 자동으로 찾아주는 교육용 도구">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourusername.github.io/poetry-analyzer">
-    
+
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
-    
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
             line-height: 1.7;
@@ -30,13 +32,13 @@
             background: #ffffff;
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
-        
+
         .header {
             text-align: center;
             color: #1a1a1a;
@@ -44,7 +46,7 @@
             padding: 60px 0;
             border-bottom: 3px solid #1a1a1a;
         }
-        
+
         .header h1 {
             font-size: 3.5em;
             margin-bottom: 20px;
@@ -52,14 +54,14 @@
             letter-spacing: -2px;
             animation: fadeInDown 1s ease-out;
         }
-        
+
         .header p {
             font-size: 1.2em;
             color: #666;
             font-weight: 300;
             animation: fadeInUp 1s ease-out 0.3s both;
         }
-        
+
         .main-content {
             background: #ffffff;
             border: 3px solid #1a1a1a;
@@ -67,14 +69,14 @@
             margin-bottom: 40px;
             animation: fadeIn 1s ease-out 0.6s both;
         }
-        
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             margin-bottom: 60px;
         }
-        
+
         .feature-card {
             background: #ffffff;
             color: #1a1a1a;
@@ -84,35 +86,35 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .feature-card:hover {
             background: #1a1a1a;
             color: #ffffff;
         }
-        
+
         .feature-icon {
             font-size: 2.5em;
             margin-bottom: 20px;
             display: block;
         }
-        
+
         .feature-title {
             font-size: 1.1em;
             font-weight: 600;
             margin-bottom: 15px;
             letter-spacing: 0.5px;
         }
-        
+
         .feature-desc {
             font-size: 0.9em;
             line-height: 1.5;
             opacity: 0.8;
         }
-        
+
         .input-section {
             margin-bottom: 50px;
         }
-        
+
         .input-section h2 {
             color: #1a1a1a;
             margin-bottom: 30px;
@@ -125,11 +127,11 @@
             border-bottom: 1px solid #e0e0e0;
             padding-bottom: 15px;
         }
-        
+
         .form-group {
             margin-bottom: 30px;
         }
-        
+
         .form-group label {
             display: block;
             font-weight: 500;
@@ -138,7 +140,7 @@
             font-size: 1em;
             letter-spacing: 0.3px;
         }
-        
+
         .form-group input,
         .form-group textarea {
             width: 100%;
@@ -150,21 +152,21 @@
             transition: all 0.3s ease;
             font-family: 'Georgia', serif;
         }
-        
+
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: #1a1a1a;
             background: #f9f9f9;
         }
-        
+
         #poemInput {
             min-height: 300px;
             font-family: 'Georgia', serif;
             line-height: 1.8;
             resize: vertical;
         }
-        
+
         .char-count {
             text-align: right;
             color: #666;
@@ -172,14 +174,14 @@
             margin-top: 10px;
             font-style: italic;
         }
-        
+
         .sample-section {
             margin-top: 30px;
             padding: 30px;
             background: #ffffff;
             border: 2px solid #e0e0e0;
         }
-        
+
         .sample-section h3 {
             color: #1a1a1a;
             margin-bottom: 20px;
@@ -187,13 +189,13 @@
             font-weight: 500;
             letter-spacing: 0.5px;
         }
-        
+
         .sample-buttons {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
         }
-        
+
         .sample-btn {
             padding: 12px 20px;
             background: #ffffff;
@@ -205,19 +207,19 @@
             font-weight: 400;
             letter-spacing: 0.3px;
         }
-        
+
         .sample-btn:hover {
             background: #1a1a1a;
             color: #ffffff;
         }
-        
+
         .api-key-section {
             background: #ffffff;
             border: 2px solid #1a1a1a;
             padding: 30px;
             margin-bottom: 40px;
         }
-        
+
         .api-key-section h3 {
             color: #1a1a1a;
             margin-bottom: 20px;
@@ -227,23 +229,23 @@
             font-weight: 500;
             font-size: 1.2em;
         }
-        
+
         .api-key-section p {
             color: #1a1a1a;
             margin-bottom: 15px;
             line-height: 1.7;
         }
-        
+
         .api-key-section a {
             color: #1a1a1a;
             text-decoration: underline;
             font-weight: 600;
         }
-        
+
         .api-key-section a:hover {
             text-decoration: none;
         }
-        
+
         .btn {
             padding: 18px 35px;
             border: 2px solid #1a1a1a;
@@ -261,33 +263,33 @@
             letter-spacing: 0.5px;
             font-family: 'Georgia', serif;
         }
-        
+
         .btn-primary {
             background: #1a1a1a;
             color: #ffffff;
         }
-        
+
         .btn-primary:hover {
             background: #ffffff;
             color: #1a1a1a;
         }
-        
+
         .btn-secondary {
             background: #ffffff;
             color: #1a1a1a;
         }
-        
+
         .btn-secondary:hover {
             background: #1a1a1a;
             color: #ffffff;
         }
-        
+
         .btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
         }
-        
+
         .button-group {
             display: flex;
             gap: 20px;
@@ -295,7 +297,7 @@
             margin: 50px 0;
             flex-wrap: wrap;
         }
-        
+
         .loading {
             display: none;
             text-align: center;
@@ -305,7 +307,7 @@
             background: #ffffff;
             margin: 40px 0;
         }
-        
+
         .loading .spinner {
             width: 50px;
             height: 50px;
@@ -315,19 +317,19 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 30px;
         }
-        
+
         .loading h3 {
             margin-bottom: 20px;
             font-size: 1.3em;
             font-weight: 400;
         }
-        
+
         .loading p {
             font-size: 1em;
             opacity: 0.7;
             line-height: 1.6;
         }
-        
+
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -335,14 +337,14 @@
             overflow: hidden;
             margin: 30px 0;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: #1a1a1a;
             width: 0%;
             transition: width 0.5s ease;
         }
-        
+
         .error-message {
             background: #ffffff;
             border: 2px solid #1a1a1a;
@@ -351,7 +353,7 @@
             margin: 30px 0;
             display: none;
         }
-        
+
         .error-message h4 {
             margin-bottom: 15px;
             display: flex;
@@ -359,65 +361,65 @@
             gap: 12px;
             font-weight: 500;
         }
-        
+
         .results {
             display: none;
             margin-top: 50px;
         }
-        
+
         .results-header {
             background: #1a1a1a;
             color: #ffffff;
             padding: 40px;
             text-align: center;
         }
-        
+
         .results-header h2 {
             margin-bottom: 20px;
             font-size: 1.8em;
             font-weight: 300;
             letter-spacing: -1px;
         }
-        
+
         .results-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 25px;
             margin-top: 30px;
         }
-        
+
         .stat-card {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .stat-number {
             font-size: 1.8em;
             font-weight: 300;
             display: block;
             margin-bottom: 8px;
         }
-        
+
         .stat-label {
             font-size: 0.85em;
             opacity: 0.8;
             letter-spacing: 0.5px;
         }
-        
+
         .results-content {
             background: #ffffff;
             border: 2px solid #1a1a1a;
             border-top: none;
             padding: 50px;
         }
-        
+
         .download-section {
             text-align: center;
             margin-bottom: 40px;
         }
-        
+
         .download-section h3 {
             color: #1a1a1a;
             margin-bottom: 25px;
@@ -425,14 +427,14 @@
             font-weight: 400;
             letter-spacing: 0.5px;
         }
-        
+
         .preview-section {
             margin-top: 40px;
             padding: 35px;
             background: #ffffff;
             border: 2px solid #e0e0e0;
         }
-        
+
         .preview-title {
             font-size: 1.2em;
             font-weight: 500;
@@ -443,7 +445,7 @@
             gap: 12px;
             letter-spacing: 0.3px;
         }
-        
+
         .preview-content {
             max-height: 600px;
             overflow-y: auto;
@@ -454,7 +456,7 @@
             line-height: 1.7;
             color: #1a1a1a;
         }
-        
+
         .footer {
             text-align: center;
             color: #1a1a1a;
@@ -462,101 +464,109 @@
             padding: 40px 0;
             border-top: 1px solid #e0e0e0;
         }
-        
+
         .footer p {
             margin-bottom: 12px;
             opacity: 0.7;
             font-size: 0.9em;
         }
-        
+
         .footer a {
             color: #1a1a1a;
             text-decoration: underline;
         }
-        
+
         .footer a:hover {
             text-decoration: none;
         }
-        
+
         /* 애니메이션 */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         /* 반응형 디자인 */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
-            
+
             .header h1 {
                 font-size: 2.2em;
             }
-            
+
             .header p {
                 font-size: 1.1em;
             }
-            
+
             .main-content {
                 padding: 25px;
             }
-            
+
             .feature-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .button-group {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .btn {
                 width: 100%;
                 max-width: 300px;
                 justify-content: center;
             }
-            
+
             .sample-buttons {
                 flex-direction: column;
             }
-            
+
             .sample-btn {
                 text-align: center;
             }
         }
-        
+
         /* 추가 스타일링 */
         .btn:disabled {
             opacity: 0.5;
@@ -565,38 +575,39 @@
             color: #999 !important;
             border-color: #ddd !important;
         }
-        
+
         .form-group input::placeholder,
         .form-group textarea::placeholder {
             color: #999;
             font-style: italic;
         }
-        
+
         /* 스크롤바 스타일링 */
         .preview-content::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         .preview-content::-webkit-scrollbar-track {
             background: #f0f0f0;
         }
-        
+
         .preview-content::-webkit-scrollbar-thumb {
             background: #1a1a1a;
         }
-        
+
         .preview-content::-webkit-scrollbar-thumb:hover {
             background: #333;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>📚 Poetry Analyzer</h1>
             <p>AI 기반 영어 시 분석 도구 - 수사법, 운율, 주제를 자동으로 분석합니다</p>
         </div>
-        
+
         <div class="main-content">
             <!-- 주요 기능 소개 -->
             <div class="feature-grid">
@@ -621,25 +632,26 @@
                     <div class="feature-desc">아름다운 HTML 형태의 분석 보고서 자동 생성</div>
                 </div>
             </div>
-            
+
             <!-- API 키 설정 안내 -->
             <div class="api-key-section">
                 <h3>🔑 API 키 설정 필요</h3>
                 <p>이 도구는 Google Gemini API를 사용합니다. 무료로 사용할 수 있으며, 아래 단계를 따라 API 키를 설정해주세요:</p>
                 <ol style="margin-left: 20px; margin-bottom: 15px;">
-                    <li><a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>에서 무료 API 키 발급</li>
+                    <li><a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>에서 무료 API 키
+                        발급</li>
                     <li>아래 입력란에 API 키를 입력</li>
                     <li>API 키는 브라우저에만 저장되며 외부로 전송되지 않습니다</li>
                 </ol>
             </div>
-            
+
             <!-- API 키 입력 -->
             <div class="form-group">
                 <label for="apiKey">🔑 Google Gemini API 키</label>
                 <input type="password" id="apiKey" placeholder="여기에 API 키를 입력하세요 (예: AIzaSy...)">
                 <div class="char-count">API 키는 로컬에만 저장되며 안전합니다</div>
             </div>
-            
+
             <!-- 모델 선택 -->
             <div class="form-group">
                 <label for="modelSelect">🤖 Gemini 모델 선택</label>
@@ -651,11 +663,12 @@
                 </select>
                 <div class="char-count">⚡ 빠르고 균형잡힌 분석을 제공합니다. (권장)</div>
             </div>
-            
+
             <!-- 모델 비교 정보 -->
             <div class="sample-section">
                 <h3>🤖 모델별 특징 비교</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
                     <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e9ecef;">
                         <h4 style="color: #667eea; margin-bottom: 8px;">🧠 Gemini 2.5 Pro</h4>
                         <p style="font-size: 0.9em; color: #6c757d;">최고 품질의 심층 분석<br>복잡한 문학적 관계 해석<br>처리 시간: 느림</p>
@@ -674,16 +687,16 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 시 제목 입력 -->
             <div class="input-section">
                 <h2>📝 시 정보 입력</h2>
-                
+
                 <div class="form-group">
                     <label for="poemTitle">시 제목 (선택사항)</label>
                     <input type="text" id="poemTitle" placeholder="예: The Road Not Taken by Robert Frost">
                 </div>
-                
+
                 <!-- 시 원문 입력 -->
                 <div class="form-group">
                     <label for="poemInput">시 원문</label>
@@ -697,7 +710,7 @@ And looked down one as far as I could
 To where it bent in the undergrowth;"></textarea>
                     <div class="char-count" id="charCount">0 글자</div>
                 </div>
-                
+
                 <!-- 샘플 시 -->
                 <div class="sample-section">
                     <h3>📖 유명한 시 샘플</h3>
@@ -710,7 +723,7 @@ To where it bent in the undergrowth;"></textarea>
                     </div>
                 </div>
             </div>
-            
+
             <!-- 분석 버튼 -->
             <div class="button-group">
                 <button class="btn btn-primary" id="analyzeBtn">
@@ -720,7 +733,7 @@ To where it bent in the undergrowth;"></textarea>
                     🗑️ 초기화
                 </button>
             </div>
-            
+
             <!-- 로딩 상태 -->
             <div class="loading" id="loading">
                 <div class="spinner"></div>
@@ -731,13 +744,13 @@ To where it bent in the undergrowth;"></textarea>
                 </div>
                 <p id="progressText">분석 준비 중...</p>
             </div>
-            
+
             <!-- 오류 메시지 -->
             <div class="error-message" id="errorMessage">
                 <h4>❌ 오류 발생</h4>
                 <p id="errorText"></p>
             </div>
-            
+
             <!-- 분석 결과 -->
             <div class="results" id="results">
                 <div class="results-header">
@@ -747,7 +760,7 @@ To where it bent in the undergrowth;"></textarea>
                         <!-- 통계 정보가 여기에 표시됩니다 -->
                     </div>
                 </div>
-                
+
                 <div class="results-content">
                     <div class="download-section">
                         <h3>📄 분석 보고서 다운로드</h3>
@@ -755,7 +768,7 @@ To where it bent in the undergrowth;"></textarea>
                             💾 HTML 보고서 다운로드
                         </button>
                     </div>
-                    
+
                     <!-- 분석 결과 미리보기 -->
                     <div class="preview-section">
                         <div class="preview-title">
@@ -769,7 +782,7 @@ To where it bent in the undergrowth;"></textarea>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             <p>🤖 Powered by Google Gemini AI & LangExtract</p>
             <p>📚 교육용 시 분석 도구 - 무료로 사용하세요</p>
@@ -781,7 +794,7 @@ To where it bent in the undergrowth;"></textarea>
         // 전역 변수
         let currentAnalysisResult = null;
         let analysisInProgress = false;
-        
+
         // 샘플 시 데이터
         const samplePoems = {
             frost: {
@@ -810,7 +823,7 @@ Two roads diverged in a wood, and I—
 I took the one less traveled by,
 And that has made all the difference.`
             },
-            
+
             shakespeare: {
                 title: "Sonnet 18 by William Shakespeare",
                 text: `Shall I compare thee to a summer's day?
@@ -828,7 +841,7 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this, and this gives life to thee.`
             },
-            
+
             poe: {
                 title: "The Raven by Edgar Allan Poe (excerpt)",
                 text: `Once upon a midnight dreary, while I pondered, weak and weary,
@@ -845,7 +858,7 @@ From my books surcease of sorrow—sorrow for the lost Lenore—
 For the rare and radiant maiden whom the angels name Lenore—
 Nameless here for evermore.`
             },
-            
+
             dickinson: {
                 title: "Hope is the thing with feathers by Emily Dickinson",
                 text: `Hope is the thing with feathers
@@ -863,7 +876,7 @@ And on the strangest sea;
 Yet, never, in extremity,
 It asked a crumb of me.`
             },
-            
+
             blake: {
                 title: "The Tyger by William Blake",
                 text: `Tyger Tyger, burning bright,
@@ -882,58 +895,58 @@ And when thy heart began to beat,
 What dread hand? & what dread feet?`
             }
         };
-        
+
         // 초기화
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('DOM 로드 완료');
             updateCharCount();
             loadApiKey();
             setupEventListeners();
-            
+
             // 버튼 테스트
             testButtons();
         });
-        
+
         function testButtons() {
             console.log('버튼 테스트 시작');
-            
+
             // 모든 버튼 요소 확인
             const analyzeBtn = document.getElementById('analyzeBtn');
             const sampleBtns = document.querySelectorAll('.sample-btn');
             const clearBtn = document.querySelector('button[onclick="clearAll()"]');
-            
+
             console.log('분석 버튼:', analyzeBtn);
             console.log('샘플 버튼들:', sampleBtns.length);
             console.log('초기화 버튼:', clearBtn);
-            
+
             if (!analyzeBtn) {
                 console.error('분석 버튼을 찾을 수 없습니다!');
             }
-            
+
             if (sampleBtns.length === 0) {
                 console.error('샘플 버튼들을 찾을 수 없습니다!');
             }
         }
-        
+
         function setupEventListeners() {
             // 텍스트 입력 시 글자 수 업데이트
             const poemInput = document.getElementById('poemInput');
             if (poemInput) {
                 poemInput.addEventListener('input', updateCharCount);
             }
-            
+
             // API 키 저장
             const apiKeyInput = document.getElementById('apiKey');
             if (apiKeyInput) {
                 apiKeyInput.addEventListener('change', saveApiKey);
             }
-            
+
             // 모델 선택 시 설명 업데이트
             const modelSelect = document.getElementById('modelSelect');
             if (modelSelect) {
                 modelSelect.addEventListener('change', updateModelDescription);
             }
-            
+
             // 분석 버튼 이벤트
             const analyzeBtn = document.getElementById('analyzeBtn');
             if (analyzeBtn) {
@@ -942,7 +955,7 @@ What dread hand? & what dread feet?`
             } else {
                 console.error('분석 버튼을 찾을 수 없습니다!');
             }
-            
+
             // 샘플 버튼들 이벤트
             const sampleBtns = document.querySelectorAll('.sample-btn');
             sampleBtns.forEach(btn => {
@@ -955,7 +968,7 @@ What dread hand? & what dread feet?`
                     console.log(`샘플 버튼 ${sampleType} 이벤트 연결됨`);
                 }
             });
-            
+
             // 초기화 버튼 이벤트
             const clearBtn = document.getElementById('clearBtn');
             if (clearBtn) {
@@ -965,16 +978,16 @@ What dread hand? & what dread feet?`
                 });
                 console.log('초기화 버튼 이벤트 연결됨');
             }
-            
+
             // 다운로드 버튼 이벤트 (동적으로 생성되므로 나중에 처리)
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 if (e.target && e.target.id === 'downloadBtn') {
                     console.log('다운로드 버튼 클릭됨');
                     downloadReport();
                 }
             });
         }
-        
+
         function updateModelDescription() {
             const selectedModel = document.getElementById('modelSelect').value;
             const descriptions = {
@@ -983,33 +996,33 @@ What dread hand? & what dread feet?`
                 'gemini-2.5-flash-lite': '💰 가장 경제적이며 빠른 기본 분석을 제공합니다.',
                 'gemini-2.0-flash': '🚀 차세대 기능으로 혁신적인 분석을 제공합니다.'
             };
-            
+
             const charCountElement = document.querySelector('#modelSelect + .char-count');
             if (charCountElement) {
                 charCountElement.textContent = descriptions[selectedModel] || '모델에 따라 분석 품질과 속도가 달라집니다';
             }
         }
-        
+
         function updateCharCount() {
             const text = document.getElementById('poemInput').value;
             const count = text.length;
             document.getElementById('charCount').textContent = count.toLocaleString() + ' 글자';
         }
-        
+
         function saveApiKey() {
             const apiKey = document.getElementById('apiKey').value;
             if (apiKey) {
                 localStorage.setItem('gemini_api_key', apiKey);
             }
         }
-        
+
         function loadApiKey() {
             const savedApiKey = localStorage.getItem('gemini_api_key');
             if (savedApiKey) {
                 document.getElementById('apiKey').value = savedApiKey;
             }
         }
-        
+
         function loadSample(type) {
             const sample = samplePoems[type];
             if (sample) {
@@ -1018,7 +1031,7 @@ What dread hand? & what dread feet?`
                 updateCharCount();
             }
         }
-        
+
         function clearAll() {
             document.getElementById('poemTitle').value = '';
             document.getElementById('poemInput').value = '';
@@ -1027,62 +1040,62 @@ What dread hand? & what dread feet?`
             currentAnalysisResult = null;
             updateCharCount();
         }
-        
+
         function showError(message) {
             document.getElementById('errorText').textContent = message;
             document.getElementById('errorMessage').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
         }
-        
+
         function hideError() {
             document.getElementById('errorMessage').style.display = 'none';
         }
-        
+
         async function analyzePoem() {
             const apiKey = document.getElementById('apiKey').value.trim();
             const title = document.getElementById('poemTitle').value.trim() || '시 분석';
             const text = document.getElementById('poemInput').value.trim();
-            
+
             // 입력 검증
             if (!apiKey) {
                 showError('Google Gemini API 키를 입력해주세요. AI Studio에서 무료로 발급받을 수 있습니다.');
                 return;
             }
-            
+
             if (apiKey.length < 20) {
                 showError('API 키가 너무 짧습니다. 올바른 Gemini API 키인지 확인해주세요.');
                 return;
             }
-            
+
             if (!text) {
                 showError('분석할 시의 원문을 입력해주세요.');
                 return;
             }
-            
+
             if (text.length < 10) {
                 showError('분석하기에는 텍스트가 너무 짧습니다. 더 긴 시를 입력해주세요.');
                 return;
             }
-            
+
             if (analysisInProgress) {
                 return;
             }
-            
+
             analysisInProgress = true;
             hideError();
-            
+
             // UI 상태 변경
             document.getElementById('analyzeBtn').disabled = true;
             document.getElementById('loading').style.display = 'block';
             document.getElementById('results').style.display = 'none';
-            
+
             // 진행률 시뮬레이션
             simulateProgress();
-            
+
             try {
                 // Gemini API 직접 호출
                 const result = await callGeminiAPI(apiKey, text, title);
-                
+
                 if (result) {
                     currentAnalysisResult = result;
                     displayResults(result);
@@ -1098,7 +1111,7 @@ What dread hand? & what dread feet?`
                 document.getElementById('loading').style.display = 'none';
             }
         }
-        
+
         // 모델별 최적화된 설정 반환
         function getModelConfig(modelName) {
             const configs = {
@@ -1129,7 +1142,7 @@ What dread hand? & what dread feet?`
             };
             return configs[modelName] || configs['gemini-2.5-flash'];
         }
-        
+
         // 모델별 최적화된 프롬프트 생성
         function generateOptimizedPrompt(modelName, text, title) {
             const basePrompt = `Please provide a comprehensive and detailed analysis of the following English poem. I need extensive analysis with multiple examples for each category.
@@ -1249,7 +1262,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 'gemini-2.5-flash-lite': basePrompt + `\n\nAs Gemini 2.5 Flash-Lite, please provide concise but accurate analysis focusing on the most important literary elements.`,
                 'gemini-2.0-flash': basePrompt + `\n\nAs Gemini 2.0 Flash, please leverage next-generation capabilities to provide innovative analysis with enhanced understanding of literary nuances.`
             };
-            
+
             return modelSpecificPrompts[modelName] || basePrompt;
         }
 
@@ -1257,7 +1270,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
             const selectedModel = document.getElementById('modelSelect').value;
             const prompt = generateOptimizedPrompt(selectedModel, text, title);
             const config = getModelConfig(selectedModel);
-            
+
             console.log(`API 호출 시작 (시도 ${retryCount + 1}/3):`, selectedModel);
             console.log('설정:', config);
 
@@ -1276,11 +1289,11 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                         generationConfig: config
                     })
                 });
-                
+
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     let errorMessage = `API 호출 실패 (${response.status})`;
-                    
+
                     if (response.status === 400) {
                         errorMessage = 'API 키가 올바르지 않거나 요청 형식에 문제가 있습니다.';
                     } else if (response.status === 403) {
@@ -1290,22 +1303,22 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     } else if (response.status >= 500) {
                         errorMessage = 'Google 서버에 일시적인 문제가 있습니다. 잠시 후 다시 시도해주세요.';
                     }
-                    
+
                     throw new Error(errorMessage);
                 }
-                
+
                 const data = await response.json();
                 console.log('API Response:', data); // 디버깅용
-                
+
                 // 안전한 응답 처리
                 if (data.candidates && data.candidates.length > 0) {
                     const candidate = data.candidates[0];
-                    
+
                     // 안전 정책 체크
                     if (candidate.finishReason === 'SAFETY') {
                         throw new Error('콘텐츠가 안전 정책에 의해 차단되었습니다. 다른 시를 시도해보세요.');
                     }
-                    
+
                     // 콘텐츠 추출
                     let content = '';
                     if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
@@ -1315,24 +1328,24 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     } else {
                         throw new Error('API 응답에서 텍스트 콘텐츠를 찾을 수 없습니다.');
                     }
-                    
+
                     // JSON 추출 시도 (개선된 방식)
                     try {
                         // 여러 방식으로 JSON 추출 시도
                         let jsonStr = '';
-                        
+
                         // 방법 1: 전체 JSON 블록 찾기
                         const fullJsonMatch = content.match(/\{[\s\S]*\}/);
                         if (fullJsonMatch) {
                             jsonStr = fullJsonMatch[0];
                         }
-                        
+
                         // 방법 2: ```json 코드 블록에서 추출
                         const codeBlockMatch = content.match(/```json\s*([\s\S]*?)\s*```/);
                         if (codeBlockMatch && codeBlockMatch[1]) {
                             jsonStr = codeBlockMatch[1];
                         }
-                        
+
                         // 방법 3: 첫 번째 { 부터 마지막 } 까지
                         if (!jsonStr) {
                             const firstBrace = content.indexOf('{');
@@ -1341,7 +1354,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                                 jsonStr = content.substring(firstBrace, lastBrace + 1);
                             }
                         }
-                        
+
                         if (jsonStr) {
                             // JSON 정리 (불완전한 JSON 수정 시도)
                             jsonStr = jsonStr.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
@@ -1365,19 +1378,19 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 }
             } catch (error) {
                 console.error(`API 호출 오류 (시도 ${retryCount + 1}/3):`, error);
-                
+
                 // 재시도 가능한 오류인지 확인
-                const isRetryableError = error.message.includes('503') || 
-                                       error.message.includes('502') || 
-                                       error.message.includes('overloaded') ||
-                                       error.message.includes('timeout');
-                
+                const isRetryableError = error.message.includes('503') ||
+                    error.message.includes('502') ||
+                    error.message.includes('overloaded') ||
+                    error.message.includes('timeout');
+
                 if (isRetryableError && retryCount < 2) {
                     console.log(`재시도 중... (${retryCount + 2}/3)`);
                     await new Promise(resolve => setTimeout(resolve, (retryCount + 1) * 2000)); // 점진적 대기
                     return callGeminiAPI(apiKey, text, title, retryCount + 1);
                 }
-                
+
                 if (error.name === 'TypeError' && error.message.includes('fetch')) {
                     throw new Error('네트워크 연결에 문제가 있습니다. 인터넷 연결을 확인해주세요.');
                 } else if (error.message.includes('API 키')) {
@@ -1385,14 +1398,14 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 } else if (error.message.includes('quota') || error.message.includes('limit')) {
                     throw new Error('API 사용량 한도를 초과했습니다. 잠시 후 다시 시도하거나 다른 모델을 선택해주세요.');
                 }
-                
+
                 throw error;
             }
         }
-        
+
         function parseTextResponse(content, title) {
             console.log('텍스트 파싱 시작:', content.substring(0, 300) + '...');
-            
+
             // 텍스트 응답을 구조화된 형태로 파싱
             const analysis = {
                 rhetorical_devices: [],
@@ -1401,7 +1414,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 style_tone: [],
                 structure_form: []
             };
-            
+
             if (!content || typeof content !== 'string') {
                 console.warn('유효하지 않은 콘텐츠:', content);
                 return {
@@ -1410,15 +1423,15 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     summary: '분석 결과를 파싱할 수 없습니다.'
                 };
             }
-            
+
             // 강화된 텍스트 파싱 로직
             const sections = content.split(/(?:\n\s*\n|\n(?=\d+\.))/);
             let currentSection = '';
-            
+
             for (const section of sections) {
                 const trimmed = section.trim();
                 if (!trimmed) continue;
-                
+
                 // 섹션 헤더 감지
                 if (trimmed.toLowerCase().includes('rhetorical') || trimmed.toLowerCase().includes('수사법')) {
                     currentSection = 'rhetorical_devices';
@@ -1436,13 +1449,13 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     currentSection = 'structure_form';
                     continue;
                 }
-                
+
                 // 분석 항목 추출
                 const lines = trimmed.split('\n');
                 for (const line of lines) {
                     const cleanLine = line.trim();
                     if (!cleanLine) continue;
-                    
+
                     // 다양한 패턴으로 분석 항목 추출
                     const patterns = [
                         /^[-•*]\s*(.+)$/,  // 불릿 포인트
@@ -1450,7 +1463,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                         /^"([^"]+)"\s*[-–—]\s*(.+)$/,  // 인용문과 설명
                         /^(.+?)\s*[-–—]\s*(.+)$/  // 대시 구분
                     ];
-                    
+
                     for (const pattern of patterns) {
                         const match = cleanLine.match(pattern);
                         if (match && currentSection) {
@@ -1459,14 +1472,14 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                                 text: match[2] || match[1] || cleanLine,
                                 explanation: match[3] || match[2] || '분석된 문학적 기법'
                             };
-                            
+
                             if (analysis[currentSection]) {
                                 analysis[currentSection].push(item);
                             }
                             break;
                         }
                     }
-                    
+
                     // 패턴이 맞지 않으면 일반 텍스트로 처리
                     if (currentSection && cleanLine.length > 10) {
                         analysis[currentSection].push({
@@ -1477,71 +1490,71 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     }
                 }
             }
-                
-                // 섹션 헤더 감지
-                if (trimmed.match(/rhetorical|수사법|figurative/i)) {
-                    currentSection = 'rhetorical_devices';
-                } else if (trimmed.match(/sound|음성|alliteration|rhyme/i)) {
-                    currentSection = 'sound_devices';
-                } else if (trimmed.match(/theme|주제|symbol|상징/i)) {
-                    currentSection = 'themes_symbols';
-                } else if (trimmed.match(/style|문체|tone|어조/i)) {
-                    currentSection = 'style_tone';
-                } else if (trimmed.match(/structure|구조|form|형식/i)) {
-                    currentSection = 'structure_form';
-                }
-                
-                // 분석 항목 추출
-                if (currentSection && trimmed) {
-                    // 기법 유형 감지
-                    const deviceMatch = trimmed.match(/(metaphor|simile|personification|alliteration|rhyme|symbol|theme)/i);
-                    if (deviceMatch) {
-                        const deviceType = deviceMatch[1];
-                        const textMatch = trimmed.match(/"([^"]+)"/);
-                        const quotedText = textMatch ? textMatch[1] : trimmed;
-                        
+
+            // 섹션 헤더 감지
+            if (trimmed.match(/rhetorical|수사법|figurative/i)) {
+                currentSection = 'rhetorical_devices';
+            } else if (trimmed.match(/sound|음성|alliteration|rhyme/i)) {
+                currentSection = 'sound_devices';
+            } else if (trimmed.match(/theme|주제|symbol|상징/i)) {
+                currentSection = 'themes_symbols';
+            } else if (trimmed.match(/style|문체|tone|어조/i)) {
+                currentSection = 'style_tone';
+            } else if (trimmed.match(/structure|구조|form|형식/i)) {
+                currentSection = 'structure_form';
+            }
+
+            // 분석 항목 추출
+            if (currentSection && trimmed) {
+                // 기법 유형 감지
+                const deviceMatch = trimmed.match(/(metaphor|simile|personification|alliteration|rhyme|symbol|theme)/i);
+                if (deviceMatch) {
+                    const deviceType = deviceMatch[1];
+                    const textMatch = trimmed.match(/"([^"]+)"/);
+                    const quotedText = textMatch ? textMatch[1] : trimmed;
+
+                    analysis[currentSection].push({
+                        type: deviceType,
+                        text: quotedText,
+                        explanation: trimmed
+                    });
+                } else if (trimmed.includes('-') || trimmed.includes('•') || trimmed.includes('*')) {
+                    // 리스트 항목 처리
+                    const cleanText = trimmed.replace(/^[-•*]\s*/, '');
+                    if (cleanText.length > 10) {
                         analysis[currentSection].push({
-                            type: deviceType,
-                            text: quotedText,
-                            explanation: trimmed
+                            type: 'Literary Device',
+                            text: cleanText.substring(0, 50) + '...',
+                            explanation: cleanText
                         });
-                    } else if (trimmed.includes('-') || trimmed.includes('•') || trimmed.includes('*')) {
-                        // 리스트 항목 처리
-                        const cleanText = trimmed.replace(/^[-•*]\s*/, '');
-                        if (cleanText.length > 10) {
-                            analysis[currentSection].push({
-                                type: 'Literary Device',
-                                text: cleanText.substring(0, 50) + '...',
-                                explanation: cleanText
-                            });
-                        }
                     }
                 }
             }
-            
-            // 빈 섹션에 기본 항목 추가
-            Object.keys(analysis).forEach(key => {
-                if (analysis[key].length === 0) {
-                    analysis[key].push({
-                        type: 'Analysis',
-                        text: 'Various literary elements detected',
-                        explanation: 'This poem contains multiple literary devices that contribute to its overall effect.'
-                    });
-                }
-            });
-            
-            return {
-                title: title,
-                analysis: analysis,
-                summary: content.length > 300 ? content.substring(0, 300) + '...' : content
-            };
         }
-        
+
+        // 빈 섹션에 기본 항목 추가
+        Object.keys(analysis).forEach(key => {
+            if (analysis[key].length === 0) {
+                analysis[key].push({
+                    type: 'Analysis',
+                    text: 'Various literary elements detected',
+                    explanation: 'This poem contains multiple literary devices that contribute to its overall effect.'
+                });
+            }
+        });
+
+        return {
+            title: title,
+            analysis: analysis,
+            summary: content.length > 300 ? content.substring(0, 300) + '...' : content
+        };
+    }
+
         function simulateProgress() {
             const progressFill = document.getElementById('progressFill');
             const progressText = document.getElementById('progressText');
             const selectedModel = document.getElementById('modelSelect').value;
-            
+
             // 모델별 진행 단계 및 예상 시간
             const modelSteps = {
                 'gemini-2.5-pro': [
@@ -1577,17 +1590,17 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     { progress: 100, text: '🌟 차세대 분석 완료!' }
                 ]
             };
-            
+
             const steps = modelSteps[selectedModel] || modelSteps['gemini-2.5-flash'];
             let currentStep = 0;
-            
+
             const updateProgress = () => {
                 if (currentStep < steps.length && analysisInProgress) {
                     const step = steps[currentStep];
                     progressFill.style.width = step.progress + '%';
                     progressText.textContent = step.text;
                     currentStep++;
-                    
+
                     // 모델별 다른 진행 속도
                     const delays = {
                         'gemini-2.5-pro': 2000 + Math.random() * 3000,      // 더 느림
@@ -1595,23 +1608,23 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                         'gemini-2.5-flash-lite': 800 + Math.random() * 1500, // 빠름
                         'gemini-2.0-flash': 1200 + Math.random() * 2500     // 중간
                     };
-                    
+
                     const delay = delays[selectedModel] || delays['gemini-2.5-flash'];
                     setTimeout(updateProgress, delay);
                 }
             };
-            
+
             updateProgress();
         }
-        
+
         function displayResults(result) {
             const analysis = result.analysis;
             const selectedModel = document.getElementById('modelSelect').value;
-            
+
             // 통계 계산
             const totalDevices = Object.values(analysis).reduce((sum, category) => sum + category.length, 0);
             const categoriesWithResults = Object.values(analysis).filter(category => category.length > 0).length;
-            
+
             // 모델별 아이콘
             const modelIcons = {
                 'gemini-2.5-pro': '🧠',
@@ -1619,7 +1632,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 'gemini-2.5-flash-lite': '💨',
                 'gemini-2.0-flash': '🚀'
             };
-            
+
             // 통계 표시
             document.getElementById('resultsStats').innerHTML = `
                 <div class="stat-card">
@@ -1643,11 +1656,11 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     <span class="stat-label">${selectedModel.replace('gemini-', '').toUpperCase()}</span>
                 </div>
             `;
-            
+
             // 미리보기 생성
             let previewHtml = `<h3>${result.title}</h3><br>`;
             previewHtml += `<p><strong>전체 요약:</strong> ${result.summary}</p><br>`;
-            
+
             const categoryNames = {
                 rhetorical_devices: '🎭 수사법',
                 sound_devices: '🎵 음성 기법',
@@ -1655,7 +1668,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 style_tone: '✍️ 문체와 어조',
                 structure_form: '🏗️ 구조와 형식'
             };
-            
+
             for (const [key, items] of Object.entries(analysis)) {
                 if (items.length > 0) {
                     previewHtml += `<h4>${categoryNames[key]} (${items.length}개)</h4>`;
@@ -1671,11 +1684,11 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                     previewHtml += '<br>';
                 }
             }
-            
+
             document.getElementById('previewContent').innerHTML = previewHtml;
             document.getElementById('results').style.display = 'block';
         }
-        
+
         function generateHTMLReport(result) {
             const analysis = result.analysis;
             const poemText = document.getElementById('poemInput').value;
@@ -1686,7 +1699,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
                 'gemini-2.5-flash-lite': '💨',
                 'gemini-2.0-flash': '🚀'
             };
-            
+
             return `<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1797,17 +1810,17 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
     </div>
     
     ${Object.entries(analysis).map(([key, items]) => {
-        if (items.length === 0) return '';
-        
-        const categoryNames = {
-            rhetorical_devices: '🎭 수사법 분석',
-            sound_devices: '🎵 음성 기법 분석',
-            themes_symbols: '🔮 주제와 상징 분석',
-            style_tone: '✍️ 문체와 어조 분석',
-            structure_form: '🏗️ 구조와 형식 분석'
-        };
-        
-        return `
+                if (items.length === 0) return '';
+
+                const categoryNames = {
+                    rhetorical_devices: '🎭 수사법 분석',
+                    sound_devices: '🎵 음성 기법 분석',
+                    themes_symbols: '🔮 주제와 상징 분석',
+                    style_tone: '✍️ 문체와 어조 분석',
+                    structure_form: '🏗️ 구조와 형식 분석'
+                };
+
+                return `
         <div class="analysis-section">
             <h2 class="section-title">${categoryNames[key]}</h2>
             ${items.map(item => `
@@ -1819,7 +1832,7 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
             `).join('')}
         </div>
         `;
-    }).join('')}
+            }).join('')}
     
     <div class="summary">
         <h2>📊 종합 분석</h2>
@@ -1833,17 +1846,17 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
 </body>
 </html>`;
         }
-        
+
         function downloadReport() {
             if (!currentAnalysisResult) {
                 showError('다운로드할 분석 결과가 없습니다.');
                 return;
             }
-            
+
             const htmlContent = generateHTMLReport(currentAnalysisResult);
             const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
             const url = URL.createObjectURL(blob);
-            
+
             const link = document.createElement('a');
             link.href = url;
             link.download = `${currentAnalysisResult.title.replace(/[^a-zA-Z0-9가-힣\s]/g, '_')}_분석보고서.html`;
@@ -1854,4 +1867,5 @@ CRITICAL: Please ensure you find and analyze AT LEAST 15-20 total literary eleme
         }
     </script>
 </body>
+
 </html>
